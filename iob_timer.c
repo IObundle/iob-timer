@@ -7,6 +7,6 @@ void timer_reset(int base) {
 
 }
 
-unsigned long timer_get_count(int base) {
+int timer_get_count(int base) {
   return ( (unsigned long) MEMGET(base, TIMER_DATA));
 }
