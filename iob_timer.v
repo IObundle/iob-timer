@@ -4,15 +4,15 @@
 `define TIMER_RESET (`UART_ADDR_W'd1)
 
 
-module time_counter #(parameter   COUNTER_WIDTH = 32)
+module iob_timer #(parameter   COUNTER_WIDTH = 32)
    (
-    input                 rst, //Count reset.
-    input                  clk,
-    input                 addr,
-    input                 enable,
-    input [COUNTER_WIDTH-1:0]		  data_in,
-    output reg            ready,
-    output [COUNTER_WIDTH-1:0] data_out
+    input                      rst, //Count reset.
+    input                      clk,
+    input                      addr,
+    input [COUNTER_WIDTH-1:0]  data_in,
+    output [COUNTER_WIDTH-1:0] data_out,
+    input                      valid,
+    output reg                 ready
     );
 
    reg [COUNTER_WIDTH-1:0]         counter;
@@ -33,7 +33,7 @@ module time_counter #(parameter   COUNTER_WIDTH = 32)
 
    always @* begin
    	rst_soft_en = 1'b0;
-   	if(enable)
+   	if(valid)
    		case (addr)
    			`TIMER_DATA:;
    			`TIMER_RESET: rst_soft_en = 1'b1;
@@ -47,7 +47,7 @@ module time_counter #(parameter   COUNTER_WIDTH = 32)
      if(rst)
        ready <= 1'b0;
      else 
-       ready <= enable;
+       ready <= valid;
        
    assign rst_int = rst | rst_soft;
    assign data_out = counter;

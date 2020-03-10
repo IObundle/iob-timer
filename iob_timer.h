@@ -1,5 +1,5 @@
-#ifndef TIME_COUNTER_H
-#define TIME_COUNTER_H
+#ifndef TIMER_H
+#define TIMER_H
 
 
 #ifndef MEMSET
@@ -18,7 +18,7 @@
 //Reset the timer
 void timer_reset(int base);
 //Gets the current number of cycles since reset
-unsigned long get_count(int base);
+unsigned long timer_get_count(int base);
 
 
 #endif
