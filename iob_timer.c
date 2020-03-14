@@ -1,4 +1,4 @@
-#include "time_counter.h"
+#include "iob_timer.h"
 
 //UART functions
 void timer_reset(int base) {	
@@ -7,6 +7,6 @@ void timer_reset(int base) {
 
 }
 
-unsigned long get_count(int base) {
+int timer_get_count(int base) {
   return ( (unsigned long) MEMGET(base, TIMER_DATA));
 }
