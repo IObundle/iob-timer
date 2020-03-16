@@ -1,26 +1,29 @@
 `timescale 1ns/1ps
 
-`define TIMER_DATA       (`UART_ADDR_W'd0)
-`define TIMER_RESET (`UART_ADDR_W'd1)
+`define TIMER_RESET (`UART_ADDR_W'd0)
+`define TIMER_DATA_HIGH (`UART_ADDR_W'd1)
+`define TIMER_DATA_LOW (`UART_ADDR_W'd2)
 
 
-module iob_timer #(parameter   COUNTER_WIDTH = 32)
+module iob_timer
    (
     input                      rst, //Count reset.
     input                      clk,
-    input                      addr,
-    input [COUNTER_WIDTH-1:0]  data_in,
-    output [COUNTER_WIDTH-1:0] data_out,
+    input [1:0]                addr,
+    input [31:0]			   data_in,
+    output [31:0] 			   data_out,
     input                      valid,
     output reg                 ready
     );
 
-   reg [COUNTER_WIDTH-1:0]         counter;
+   //counter
+   reg [64:0]     counter;
+   reg [31:0]	  tmp_reg;
    
    // reset
-   wire                              rst_int;
-   reg                               rst_soft;
-   reg                               rst_soft_en;
+   wire                        rst_int;
+   reg                         rst_soft;
+   reg                         rst_soft_en;
    
    //soft reset pulse
    always @(posedge clk, posedge rst)
@@ -33,14 +36,18 @@ module iob_timer #(parameter   COUNTER_WIDTH = 32)
 
    always @* begin
    	rst_soft_en = 1'b0;
+   	tmp_reg_en = 1'b0;
    	if(valid)
    		case (addr)
-   			`TIMER_DATA:;
+   			`TIMER_DATA_HIGH: begin 
+   				data_out = counter [63:32];
+   				tmp_reg = counter [31:0];
+   			end
+   			`TIMER_DATA_LOW: data_out = tmp_reg;
    			`TIMER_RESET: rst_soft_en = 1'b1;
    			default:;
    		endcase
-   end
-   	
+   end   	
    
    // cpu interface ready signal
    always @(posedge clk, posedge rst)
@@ -50,8 +57,8 @@ module iob_timer #(parameter   COUNTER_WIDTH = 32)
        ready <= valid;
        
    assign rst_int = rst | rst_soft;
-   assign data_out = counter;
-       
+   
+   //Cycles counter
    always @ (posedge clk, posedge rst_int)
      if (rst_int) begin
         counter   <= 0; 

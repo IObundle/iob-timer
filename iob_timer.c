@@ -7,6 +7,15 @@ void timer_reset(int base) {
 
 }
 
-int timer_get_count(int base) {
-  return ( (unsigned long) MEMGET(base, TIMER_DATA));
+long long timer_get_count(int base) {
+  long long *cycles_ptr;
+  int timer_high, timer_low;
+  
+  timer_high = (int) MEMGET(base, TIMER_DATA_HIGH);
+  timer_low = (int) MEMGET(base, TIMER_DATA_LOW);
+  
+  *(((int *) cycles_ptr)) = timer_high;
+  *(((int *) cycles_ptr) + sizeof(int)) = timer_low;
+  
+  return (*cycles_ptr);
 }

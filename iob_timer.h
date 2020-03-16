@@ -11,8 +11,9 @@
 #endif
 
 //Memory Map
-#define TIMER_DATA  0
-#define TIMER_RESET 1
+#define TIMER_RESET 0
+#define TIMER_DATA_HIGH 1
+#define TIMER_DATA_LOW 2
 
 //Functions
 //Reset the timer
