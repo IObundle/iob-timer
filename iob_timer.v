@@ -11,7 +11,7 @@ module iob_timer
     input                      clk,
     input [1:0]                addr,
     input [31:0]			   data_in,
-    output [31:0] 			   data_out,
+    output reg [31:0] 			   data_out,
     input                      valid,
     output reg                 ready
     );
@@ -36,7 +36,6 @@ module iob_timer
 
    always @* begin
    	rst_soft_en = 1'b0;
-   	tmp_reg_en = 1'b0;
    	if(valid)
    		case (addr)
    			`TIMER_DATA_HIGH: begin 
