@@ -12,8 +12,9 @@
 
 //Memory Map
 #define TIMER_RESET 0
-#define TIMER_DATA_HIGH 1
-#define TIMER_DATA_LOW 2
+#define TIMER_STOP 1
+#define TIMER_DATA_HIGH 2
+#define TIMER_DATA_LOW 3
 
 //Functions
 //Reset the timer
