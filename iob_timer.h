@@ -21,6 +21,6 @@
 void timer_reset(int base);
 //Gets the current number of cycles since reset
 long long timer_get_count(int base);
-
+unsigned int timer_get_count_us(int base);
 
 #endif

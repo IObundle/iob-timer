@@ -18,3 +18,13 @@ long long timer_get_count(int base) {
   
   return (timer_total);
 } 
+
+//counter with 10us resolution and max value of almost 12 hours
+unsigned int timer_get_count_us(int base) {
+  unsigned int timer_high, timer_low, timer;
+  MEMGET(base, TIMER_STOP);
+  timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
+  timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
+  timer = (timer_high << 22) | (timer_low >> 10);
+  return (timer*((1024*1000000)/UART_CLK_FREQ));
+}
