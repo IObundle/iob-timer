@@ -6,15 +6,15 @@ void timer_reset(int base) {
 
 }
 
-long long timer_get_count(int base) {
-  long long timer_total;
-  int timer_high, timer_low;
+unsigned long long timer_get_count(int base) {
+  unsigned long long timer_total;
+  unsigned int timer_high, timer_low;
   
   MEMGET(base, TIMER_STOP);
-  timer_high = (int) MEMGET(base, TIMER_DATA_HIGH);
-  timer_low = (int) MEMGET(base, TIMER_DATA_LOW);
-  timer_total = ((long long) timer_high) << 32;
-  timer_total = timer_total + timer_low;
+  timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
+  timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
+  timer_total = ((unsigned long long) timer_high) << 32;
+  timer_total |= timer_low;
   
   return (timer_total);
 } 
