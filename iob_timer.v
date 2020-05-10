@@ -30,6 +30,7 @@ module iob_timer
    always @* begin
    	rst_soft_en = 1'b0;
    	tmp_reg_en = 1'b0;
+        data_out = 32'b0;
    	if(valid)
    		case (addr)
    			`TIMER_RESET: rst_soft_en = 1'b1;
