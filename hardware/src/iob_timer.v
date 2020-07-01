@@ -7,13 +7,13 @@
 
 module iob_timer
    (
-    input                      rst, //Count reset.
-    input                      clk,
-    input [1:0]                addr,
-    input [31:0]			   data_in,
-    output reg [31:0] 		   data_out,
-    input                      valid,
-    output reg                 ready
+    input 	      rst, //Count reset.
+    input 	      clk,
+    input [1:0]       addr,
+    input [31:0]      data_in,
+    output reg [31:0] data_out,
+    input 	      valid,
+    output reg 	      ready
     );
 
    //counter
@@ -24,7 +24,7 @@ module iob_timer
    wire         rst_int;
    reg          rst_soft;
    reg          rst_soft_en;
-   reg			tmp_reg_en;
+   reg		tmp_reg_en;
    
 
    always @* begin
@@ -32,13 +32,13 @@ module iob_timer
    	tmp_reg_en = 1'b0;
         data_out = 32'b0;
    	if(valid)
-   		case (addr)
-   			`TIMER_RESET: rst_soft_en = 1'b1;
-   			`TIMER_STOP: tmp_reg_en = 1'b1;
-   			`TIMER_DATA_HIGH: data_out = tmp_reg[63:32];
-   			`TIMER_DATA_LOW: data_out = tmp_reg[31:0];
-   			default:;
-   		endcase
+   	  case (addr)
+   	    `TIMER_RESET:     rst_soft_en = 1'b1;
+   	    `TIMER_STOP:      tmp_reg_en = 1'b1;
+   	    `TIMER_DATA_HIGH: data_out = tmp_reg[63:32];
+   	    `TIMER_DATA_LOW:  data_out = tmp_reg[31:0];
+   	    default:;
+   	  endcase
    end 
      	
    //soft reset pulse
@@ -72,7 +72,6 @@ module iob_timer
         tmp_reg <= 0; 
      else if(tmp_reg_en)
         tmp_reg <= counter;
-     
    
 endmodule
 

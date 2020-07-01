@@ -26,5 +26,5 @@ unsigned int timer_get_count_us(int base) {
   timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
   timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
   timer = (timer_high << 22) | (timer_low >> 10);
-  return (timer*((1024*1000000)/UART_CLK_FREQ));
+  return (timer*((1024*1000000)/FREQ));
 }
