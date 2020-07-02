@@ -14,7 +14,7 @@ unsigned long long timer_get_count(int base) {
   //get diference in seconds
   double time_dif_secs = (double) (end - start) / CLOCKS_PER_SEC;
   //return number of cycles
-  return (unsigned long long) (time_dif_secs * UART_CLK_FREQ);
+  return (unsigned long long) (time_dif_secs * FREQ);
 } 
 
 //counter with 10us resolution and max value of almost 12 hours
