@@ -7,7 +7,7 @@ module iob_timer (
 
 		  //cpu interface
 		  input 	    valid,
-		  input [1:0] 	    addr,
+		  input [1:0] 	    address,
 		  input [31:0] 	    wdata,
 		  output reg [31:0] rdata,
 		  output reg 	    ready
@@ -29,7 +29,7 @@ module iob_timer (
    	tmp_reg_en = 1'b0;
         rdata = 32'b0;
    	if(valid)
-   	  case (addr)
+   	  case (address)
    	    `TIMER_RESET:     rst_soft_en = 1'b1;
    	    `TIMER_STOP:      tmp_reg_en = 1'b1;
    	    `TIMER_DATA_HIGH: rdata = tmp_reg[63:32];
