@@ -1,7 +1,6 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-
 #ifndef MEMSET
 #define MEMSET(base, location, value) (*((volatile int*) (base + (sizeof(int)) * location)) = value)
 #endif
@@ -22,5 +21,8 @@ void timer_reset(int base);
 //Gets the current number of cycles since reset
 unsigned long long timer_get_count(int base);
 unsigned int timer_get_count_us(int base);
+unsigned int timer_time_us(int base);
+unsigned int timer_time_ms(int base);
+unsigned int timer_time_s(int base);
 
 #endif
