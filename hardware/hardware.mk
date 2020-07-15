@@ -9,4 +9,4 @@ VHDR+=$(wildcard $(TIMER_INC_DIR)/*.vh)
 
 #sources
 TIMER_SRC_DIR:=$(TIMER_DIR)/hardware/src
-VSRC+=$(TIMER_HW_DIR)/src/*.v
+VSRC+=$(wildcard $(TIMER_HW_DIR)/src/*.v)

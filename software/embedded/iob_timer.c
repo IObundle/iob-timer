@@ -23,43 +23,61 @@ unsigned long long timer_get_count(int base) {
 //deprecated
 //unsigned int timer_get_count_us(int base) {return 0;}
 
-//counter with 10us resolution and max value of almost 12 hours
+//counter with 1us resolution and max value of 1h11
 unsigned int timer_time_us(int base) {
-  unsigned int timer_high, timer_low, timer, calc; //, aux;
-  //  unsigned long long timer_total;
+  unsigned int timer_high, timer_low, timer, ticks_per_us, timer_high_period_us;
+
+  // stop timer and get counter
   MEMGET(base, TIMER_STOP);
   timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
   timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
-  //  timer = (timer_high << 22) | (timer_low >> 10); // (=) /1024
 
-  calc = FREQ/1000; //freq in kHz //ideally FREQ/1000000
-  calc /= 1000; //freq in MHz
-  timer = timer_low/calc;         //ideally timer_total
+  // number of clocks per us
+  ticks_per_us = FREQ/1000000;
+  // us for each tick in TIMER_DATA_HIGH = ((2^32) - 1)/(ticks_per_us)
+  timer_high_period_us = ((1<<31)/ticks_per_us)*2;
+
+  // calculate time in us
+  timer = timer_low/ticks_per_us;
+  timer += timer_high*timer_high_period_us;
   return timer;
 }
 
-//counter with 10ms resolution and unreachable max value
+//counter with 1ms resolution and max value of over 49 days
 unsigned int timer_time_ms(int base) {
-  unsigned int timer_high, timer_low, timer, calc;
+  unsigned int timer_high, timer_low, timer, ticks_per_ms, timer_high_period_ms;
+
+  // stop timer and get counter
   MEMGET(base, TIMER_STOP);
   timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
   timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
-  //  timer = (timer_high << 12) | (timer_low >> 20); // (=) /(1024*1024)
 
-  calc = FREQ/1000;
-  //  calc /= 1000;
-  timer = timer_low/calc; //ideally timer_total
+  // number of clocks per ms
+  ticks_per_ms = FREQ/1000;
+  // us for each tick in TIMER_DATA_HIGH = ((2^32) - 1)/(ticks_per_ms)
+  timer_high_period_ms = ((1<<31)/ticks_per_ms)*2;
+
+  // calculate time in us
+  timer = timer_low/ticks_per_ms;
+  timer += timer_high*timer_high_period_ms;
   return timer;
 }
 
-//counter with 10s resolution and unreachable max value
+//counter with 1s resolution and max value of over 136 years
 unsigned int timer_time_s(int base) {
-  unsigned int timer_high, timer_low, timer, calc;
+  unsigned int timer_high, timer_low, timer, timer_high_period_s;
+
+  // stop timer and get counter
   MEMGET(base, TIMER_STOP);
   timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
   timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
-  //  timer = (timer_high << 12) | (timer_low >> 20);
-  calc = FREQ;
-  timer = timer_low/calc; //ideally timer_total
+
+  // FREQ = number of clocks per s
+  // us for each tick in TIMER_DATA_HIGH = ((2^32) - 1)/(FREQ)
+  timer_high_period_s = ((1<<31)/FREQ)*2;
+
+  // calculate time in us
+  timer = timer_low/FREQ;
+  timer += timer_high*timer_high_period_s;
   return timer;
 }
