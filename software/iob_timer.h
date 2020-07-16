@@ -1,12 +1,12 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#ifndef MEMSET
-#define MEMSET(base, location, value) (*((volatile int*) (base + (sizeof(int)) * location)) = value)
+#ifndef IO_SET
+#define IO_SET(base, location, value) (*((volatile int*) (base + (sizeof(int)) * location)) = value)
 #endif
 
-#ifndef MEMGET
-#define MEMGET(base, location)        (*((volatile int*) (base + (sizeof(int)) * location)))
+#ifndef IO_GET
+#define IO_GET(base, location)        (*((volatile int*) (base + (sizeof(int)) * location)))
 #endif
 
 //Memory Map
