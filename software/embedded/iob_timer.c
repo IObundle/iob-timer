@@ -1,8 +1,8 @@
 #include "iob_timer.h"
 
 void timer_reset(int base) {	
-  MEMSET(base, TIMER_RESET, 1);
-  MEMSET(base, TIMER_RESET, 0);
+  IO_SET(base, TIMER_RESET, 1);
+  IO_SET(base, TIMER_RESET, 0);
 
 }
 
@@ -10,9 +10,9 @@ unsigned long long timer_get_count(int base) {
   unsigned long long timer_total;
   unsigned int timer_high, timer_low;
   
-  MEMGET(base, TIMER_STOP);
-  timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
-  timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
+  IO_GET(base, TIMER_STOP);
+  timer_high = (unsigned int) IO_GET(base, TIMER_DATA_HIGH);
+  timer_low = (unsigned int) IO_GET(base, TIMER_DATA_LOW);
   timer_total = timer_high;
   timer_total = timer_total << 32;
   timer_total |= timer_low;
@@ -28,9 +28,9 @@ unsigned int timer_time_us(int base) {
   unsigned int timer_high, timer_low, timer, ticks_per_us, timer_high_period_us;
 
   // stop timer and get counter
-  MEMGET(base, TIMER_STOP);
-  timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
-  timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
+  IO_GET(base, TIMER_STOP);
+  timer_high = (unsigned int) IO_GET(base, TIMER_DATA_HIGH);
+  timer_low = (unsigned int) IO_GET(base, TIMER_DATA_LOW);
 
   // number of clocks per us
   ticks_per_us = FREQ/1000000;
@@ -48,9 +48,9 @@ unsigned int timer_time_ms(int base) {
   unsigned int timer_high, timer_low, timer, ticks_per_ms, timer_high_period_ms;
 
   // stop timer and get counter
-  MEMGET(base, TIMER_STOP);
-  timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
-  timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
+  IO_GET(base, TIMER_STOP);
+  timer_high = (unsigned int) IO_GET(base, TIMER_DATA_HIGH);
+  timer_low = (unsigned int) IO_GET(base, TIMER_DATA_LOW);
 
   // number of clocks per ms
   ticks_per_ms = FREQ/1000;
@@ -68,9 +68,9 @@ unsigned int timer_time_s(int base) {
   unsigned int timer_high, timer_low, timer, timer_high_period_s;
 
   // stop timer and get counter
-  MEMGET(base, TIMER_STOP);
-  timer_high = (unsigned int) MEMGET(base, TIMER_DATA_HIGH);
-  timer_low = (unsigned int) MEMGET(base, TIMER_DATA_LOW);
+  IO_GET(base, TIMER_STOP);
+  timer_high = (unsigned int) IO_GET(base, TIMER_DATA_HIGH);
+  timer_low = (unsigned int) IO_GET(base, TIMER_DATA_LOW);
 
   // FREQ = number of clocks per s
   // us for each tick in TIMER_DATA_HIGH = ((2^32) - 1)/(FREQ)
