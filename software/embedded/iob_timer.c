@@ -3,7 +3,7 @@
 #include "timer_sw_reg.h"
 
 //base address
-int base;
+static int base;
 
 void timer_reset() {	
   IO_SET(base, TIMER_RESET, 1);

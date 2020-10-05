@@ -36,7 +36,8 @@ module iob_timer
 
    //ready signal   
    `SIGNAL(ready_int, 1)
-   `REG_AR(clk, rst_int, 0, ready_int, valid)
+   `REG_AR(clk, rst, 0, ready_int, valid)
+
    `SIGNAL2OUT(ready, ready_int)
 
    //rdata signal
