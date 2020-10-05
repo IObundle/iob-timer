@@ -1,6 +1,4 @@
-TIMER_INC_DIR:=$(TIMER_DIR)/hardware/include
-LIB_DIR:=$(TIMER_DIR)/submodules/LIB
-TIMER_SW_DIR:=$(TIMER_DIR)/software
+include $(TIMER_DIR)/core.mk
 
 #include
 INCLUDE+=-I$(TIMER_SW_DIR)

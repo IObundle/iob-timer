@@ -1,9 +1,4 @@
-#paths
-TIMER_HW_DIR:=$(TIMER_DIR)/hardware
-TIMER_INC_DIR:=$(TIMER_DIR)/hardware/include
-LIB_DIR:=$(TIMER_DIR)/submodules/LIB
-INTERCON_DIR:=$(TIMER_DIR)/submodules/INTERCON
-
+include $(TIMER_DIR)/core.mk
 
 #define
 #nothing to define

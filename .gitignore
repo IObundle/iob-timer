@@ -1,3 +1,9 @@
+hardware/fpga/XCKU/*
+!hardware/fpga/XCKU/build.sh
+!hardware/fpga/XCKU/Makefile
+!hardware/fpga/XCKU/synth_system.tcl
+!hardware/fpga/XCKU/synth_system.xdc
+
 hardware/include/sw_reg_gen.v
 hardware/include/sw_reg_w.vh
 software/timer_sw_reg.h
