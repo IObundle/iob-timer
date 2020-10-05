@@ -1,0 +1,3 @@
+hardware/include/sw_reg_gen.v
+hardware/include/sw_reg_w.vh
+software/timer_sw_reg.h
