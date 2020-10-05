@@ -1,18 +1,18 @@
 include $(TIMER_DIR)/core.mk
 
 #define
-#nothing to define
+DEFINE+=$(defmacro) DATA_W=32
 
 #include
 TIMER_INC_DIR:=$(TIMER_HW_DIR)/include
 INCLUDE+=$(incdir) $(TIMER_INC_DIR)
 INCLUDE+=$(incdir) $(LIB_DIR)/hardware/include
-INCLUDE+=$(incdir) $(INTERCON_DIR)/include 
+INCLUDE+=$(incdir) $(INTERCON_DIR)/hardware/include 
 
 #headers
 VHDR+=$(wildcard $(TIMER_INC_DIR)/*.vh)
 VHDR+=$(wildcard $(LIB_DIR)/hardware/include/*.vh)
-VHDR+=$(wildcard $(INTERCON_DIR)/include/*.vh $(INTERCON_DIR)/include/*.v)
+VHDR+=$(wildcard $(INTERCON_DIR)/hardware/include/*.vh $(INTERCON_DIR)/hardware/include/*.v)
 VHDR+=$(TIMER_INC_DIR)/sw_reg_gen.v
 
 #sources

@@ -12,7 +12,7 @@ DOC_TYPE:=pb
 #DOC_TYPE:=ug
 
 #FPGA
-COMPILE_DIR ?= sandbox/iob-soc/submodules/TIMER/hardware/fpga/$(FPGA_FAMILY)
+COMPILE_DIR ?= sandbox/iob-timer/hardware/fpga/$(FPGA_FAMILY)
 COMPILE_USER ?= jousa
 COMPILE_SERVER ?=pudim-flan.iobundle.com
 #COMPILE_SERVER ?=localhost

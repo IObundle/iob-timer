@@ -1,5 +1,5 @@
-include $(I2S_DIR)/core.mk
-include $(I2S_DIR)/hardware/hardware.mk
+include $(TIMER_DIR)/core.mk
+include $(TIMER_DIR)/hardware/hardware.mk
 
 run:compile
 
