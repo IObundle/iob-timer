@@ -3,17 +3,18 @@ CORE_NAME:=TIMER
 #PATHS
 TIMER_HW_DIR:=$(TIMER_DIR)/hardware
 TIMER_INC_DIR:=$(TIMER_HW_DIR)/include
-LIB_DIR:=$(TIMER_DIR)/submodules/LIB
 INTERCON_DIR:=$(TIMER_DIR)/submodules/INTERCON
 TIMER_SW_DIR:=$(TIMER_DIR)/software
+LIB_DIR:=$(TIMER_DIR)/submodules/LIB
+TEX_DIR:=$(TIMER_DIR)/submodules/TEX
 
 #DOCUMENT
 DOC_TYPE:=pb
 #DOC_TYPE:=ug
 
 #FPGA
-COMPILE_DIR ?= sandbox/iob-timer/hardware/fpga/$(FPGA_FAMILY)
-COMPILE_USER ?= jousa
+COMPILE_DIR ?= ./sandbox/iob-timer/hardware/fpga/$(FPGA_FAMILY)
+COMPILE_USER ?= $(USER)
 COMPILE_SERVER ?=pudim-flan.iobundle.com
 #COMPILE_SERVER ?=localhost
 FPGA_FAMILY ?=XCKU
@@ -25,3 +26,6 @@ ifeq ($(FPGA_FAMILY),CYCLONEV-GT)
 else
 	COMPILE_OBJ ?=timer_0.edif
 endif
+
+XILINX=1
+INTEL=0
