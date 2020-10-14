@@ -19,7 +19,7 @@ VHDR+=$(TIMER_INC_DIR)/sw_reg_gen.v
 TIMER_SRC_DIR:=$(TIMER_DIR)/hardware/src
 VSRC+=$(wildcard $(TIMER_HW_DIR)/src/*.v)
 
-$(TIMER_INC_DIR)/sw_reg_gen.v: $(TIMER_INC_DIR)/sw_reg.v
-	$(LIB_DIR)/software/mkregs.py $< HW
-	mv sw_reg_gen.v $(TIMER_INC_DIR)
-	mv sw_reg_w.vh $(TIMER_INC_DIR)
+#$(TIMER_INC_DIR)/sw_reg_gen.v: $(TIMER_INC_DIR)/sw_reg.v
+#	$(LIB_DIR)/software/mkregs.py $< HW
+#	mv sw_reg_gen.v $(TIMER_INC_DIR)
+#	mv sw_reg_w.vh $(TIMER_INC_DIR)
