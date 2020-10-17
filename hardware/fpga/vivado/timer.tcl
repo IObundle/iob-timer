@@ -19,7 +19,7 @@ set_property part $PART [current_project]
 
 synth_design -include_dirs $HW_INCLUDE -verilog_define $HW_DEFINE -part $PART -top $TOP -mode out_of_context -flatten_hierarchy none -verbose
 
-read_xdc ./synth_system.xdc
+read_xdc ../timer.xdc
 
 opt_design
 place_design
@@ -27,6 +27,7 @@ route_design
 
 report_utilization
 report_timing
+report_clocks
 
 write_edif -force $TOP.edif
 set TOP_STUB $TOP

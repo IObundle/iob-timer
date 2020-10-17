@@ -9,11 +9,11 @@
 \usepackage{array}
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
-\title{Configurable Kilo-Channel\\ I$\bm{^2}$S/TDM Transceiver}
+\title{64-bit Timer}
 \category{User Guide}
 %\confidential{}
 
-\getenv[\TEX]{TEX_DIR}
+%\getenv[\TEX]{TEX_DIR}
 \input{\TEX/color}
 
 \begin{document}
@@ -32,12 +32,14 @@
 
 \section{\textcolor[rgb]{0,0,0}{Features}}
 \input{../features}
+\clearpage
 
 \section{\textcolor[rgb]{0,0,0}{Benefits}}
 \input{\TEX/benefits}
 
 \section{\textcolor[rgb]{0,0,0}{Deliverables}}
 \input{\TEX/deliverables}
+\clearpage
 
 \section{\textcolor[rgb]{0,0,0}{Block Diagram and Description}}
 \input{./bdd}
@@ -52,14 +54,8 @@
 \section{Registers}
 \input{rg}
 
-\section{Data Memory Organization}
-\input{mo}
-
 \section{\textcolor[rgb]{0,0,0}{FPGA Results}}
 \input{ir}
-
-\section{Timing Diagrams}
-\input{td}
 
 %\bibliographystyle{unsrt}
 %\bibliography{ug}

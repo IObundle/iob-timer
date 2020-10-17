@@ -4,9 +4,9 @@
 
 module iob_timer 
   #(
-    parameter ADDR_W = `TIMER_ADDR_W, //Data word width
-    parameter DATA_W = `DATA_W, //Data word width
-    parameter WDATA_W = `TIMER_WDATA_W //Data word width
+    parameter ADDR_W = `TIMER_ADDR_W, //Address width
+    parameter DATA_W = 32, //NODOC Data word width
+    parameter WDATA_W = `TIMER_WDATA_W //Data word width on writes
     )
    (
 `include "cpu_nat_s_if.v"
@@ -26,7 +26,8 @@ module iob_timer
    `SIGNAL(write, 1) 
    `COMB write = | wstrb;
 
-   //time counter
+   //BLOCK 64-bit time counter & Free-running 64-bit counter with enable and soft reset capabilities
+   
    `SIGNAL(time_counter, 2*DATA_W)
    `COUNTER_ARE(clk, rst_int, TIMER_ENABLE, time_counter)
 

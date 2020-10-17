@@ -1,10 +1,7 @@
 \label{sec:re}
-The software accessible registers of the I$^2$S/TDM core are described in
-Tables~\ref{tab:rgrx}, \ref{tab:rgtx}. The table gives
-information on the name, read/write capability, word aligned addresses, used
-word bits and a textual description.
-\clearpage
-
+The software accessible registers of the TIMER core are described in
+Table~\ref{tab:rg}. The table gives information on the name, read/write
+capability, word aligned addresses, used word bits and a textual description.
 
 \begin{table}[H]
   \centering
@@ -14,88 +11,10 @@ word bits and a textual description.
     
     {\bf Name} & {\bf R/W} & {\bf Addr} & {\bf Bits} & {\bf Initial Value} & {\bf Description} \\ \hline
 
-    \input{sw_rxreg_tab}
+    \input{sw_reg_tab}
     
   \end{tabular}
-  \caption{Software accessible registers for the RX block.}
-  \label{tab:rgrx}
+  \caption{Software accessible registers.}
+  \label{tab:rg}
 \end{table}
 
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|c|c|r|P{0.8cm}|p{5.5cm}|}
-    \hline
-    \rowcolor{iob-green}
-    
-    {\bf Name} & {\bf R/W} & {\bf Addr} & {\bf Bits} & {\bf Initial Value} & {\bf Description} \\ \hline
-
-    \input{sw_rxfiforeg_tab}
-    
-  \end{tabular}
-  \caption{Software accessible registers for the RX block (FIFO control).}
-  \label{tab:rgfiforx}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|c|c|r|P{0.8cm}|p{6.5cm}|}
-    \hline
-    \rowcolor{iob-green}
-    
-    {\bf Name} & {\bf R/W} & {\bf Addr} & {\bf Bits} & {\bf Initial Value} & {\bf Description} \\ \hline
-
-    \input{sw_rxdmareg_tab}
-    
-  \end{tabular}
-  \caption{Software accessible registers for the RX block (DMA control).}
-  \label{tab:rgdmarx}
-\end{table}
-
-\clearpage
-
-
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|c|c|r|P{0.8cm}|p{7.5cm}|}
-    \hline
-    \rowcolor{iob-green}
-    
-    {\bf Name} & {\bf R/W} & {\bf Addr} & {\bf Bits} & {\bf Initial Value} & {\bf Description} \\ \hline
-
-    \input{sw_txreg_tab}
-    
-  \end{tabular}
-  \caption{Software accessible registers for the TX block.}
-  \label{tab:rgtx}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|c|c|r|P{0.8cm}|p{5.5cm}|}
-    \hline
-    \rowcolor{iob-green}
-    
-    {\bf Name} & {\bf R/W} & {\bf Addr} & {\bf Bits} & {\bf Initial Value} & {\bf Description} \\ \hline
-
-    \input{sw_txfiforeg_tab}
-    
-  \end{tabular}
-  \caption{Software accessible registers for the TX block (FIFO control).}
-  \label{tab:rgfifotx}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|c|c|r|P{0.8cm}|p{6.5cm}|}
-    \hline
-    \rowcolor{iob-green}
-    
-    {\bf Name} & {\bf R/W} & {\bf Addr} & {\bf Bits} & {\bf Initial Value} & {\bf Description} \\ \hline
-
-    \input{sw_txdmareg_tab}
-    
-  \end{tabular}
-  \caption{Software accessible registers for the TX block (DMA control).}
-  \label{tab:rgdmatx}
-\end{table}

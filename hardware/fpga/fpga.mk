@@ -1,13 +1,10 @@
-include $(TIMER_DIR)/core.mk
+TIMER_DIR:=../../..
 include $(TIMER_DIR)/hardware/hardware.mk
 
-run:compile
+FPGA_VSRC=$(addprefix ../, $(VSRC) )
+FPGA_VHDR=$(addprefix ../, $(VHDR) )
+FPGA_INCLUDE=$(addprefix ../, $(INCLUDE) )
 
-compile: $(COMPILE_OBJ)
-
-$(COMPILE_OBJ): $(wildcard *.sdc) $(VSRC) $(VHDR)
-	./build.sh "$(VSRC)" "$(INCLUDE)" "$(DEFINE)"
-
-.PRECIOUS: $(COMPILE_OBJ)
-
-.PHONY: load compile
+$(FPGA_OBJ): $(CONSTRAINTS) $(VSRC) $(VHDR)
+	mkdir -p $(FPGA_FAMILY)
+	cd $(FPGA_FAMILY); ../build.sh "$(FPGA_VSRC)" "$(FPGA_INCLUDE)" "$(DEFINE)" "$(FPGA_PART)"
