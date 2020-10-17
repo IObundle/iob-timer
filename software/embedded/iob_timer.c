@@ -15,7 +15,7 @@ void timer_start() {
 }
 
 void timer_stop() {	
-  IO_SET(base, TIMER_ENABLE, 1);
+  IO_SET(base, TIMER_ENABLE, 0);
 }
 
 
