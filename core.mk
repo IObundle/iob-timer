@@ -4,7 +4,7 @@ USE_NETLIST ?=0
 
 #PATHS
 TIMER_HW_DIR:=$(TIMER_DIR)/hardware
-TIMER_INC_DIR:=$(TIMER_HW_DIR)/include
+TIMER_HW_INC_DIR:=$(TIMER_HW_DIR)/include
 TIMER_DOC_DIR:=$(TIMER_DIR)/document
 TIMER_SUBMODULES_DIR:=$(TIMER_DIR)/submodules
 INTERCON_DIR:=$(TIMER_DIR)/submodules/INTERCON
@@ -12,13 +12,22 @@ LIB_DIR:=$(TIMER_DIR)/submodules/LIB
 TEX_DIR:=$(TIMER_DIR)/submodules/TEX
 REMOTE_ROOT_DIR ?= sandbox/iob-soc/submodules/TIMER
 
-#DOCUMENT
-DOC_TYPE:=pb
-#DOC_TYPE:=ug
-INTEL ?=1
-XILINX ?=1
+#
+#SIMULATION
+#
+SIMULATOR ?=icarus
+SIM_SERVER ?=localhost
+SIM_USER ?=$(USER)
 
+#SIMULATOR ?=ncsim
+#SIM_SERVER ?=micro7.lx.it.pt
+#SIM_USER ?=user19
+
+SIM_DIR ?=hardware/simulation/$(SIMULATOR)
+
+#
 #FPGA
+#
 #FPGA_FAMILY ?=CYCLONEV-GT
 FPGA_FAMILY ?=XCKU
 #FPGA_SERVER ?=localhost
@@ -39,6 +48,14 @@ FPGA_LOG:=vivado.log
 else ifeq ($(FPGA_COMP),quartus)
 FPGA_LOG:=quartus.log
 endif
+
+#
+#DOCUMENT
+#
+DOC_TYPE:=pb
+#DOC_TYPE:=ug
+INTEL ?=1
+XILINX ?=1
 
 VLINE:="V$(VERSION)"
 version.txt:

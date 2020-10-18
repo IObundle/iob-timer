@@ -1,6 +1,28 @@
 TIMER_DIR:=.
 include core.mk
 
+sim:
+ifeq ($(SIM_SERVER), localhost)
+	make -C $(SIM_DIR) run SIMULATOR=$(SIMULATOR)
+else
+	ssh $(SIM_USER)@$(SIM_SERVER) "if [ ! -d $(USER)/$(REMOTE_ROOT_DIR) ]; then mkdir -p $(USER)/$(REMOTE_ROOT_DIR); fi"
+	make -C $(SIM_DIR) clean
+	rsync -avz --delete --exclude .git $(TIMER_DIR) $(SIM_USER)@$(SIM_SERVER):$(USER)/$(REMOTE_ROOT_DIR)
+	ssh $(SIM_USER)@$(SIM_SERVER) 'cd $(USER)/$(REMOTE_ROOT_DIR); make -C $(SIM_DIR) run SIMULATOR=$(SIMULATOR) SIM_SERVER=localhost'
+endif
+
+sim-waves:
+	gtkwave $(SIM_DIR)/timer.vcd &
+
+sim-clean:
+ifeq ($(SIM_SERVER), localhost)
+	make -C $(SIM_DIR) clean
+else 
+	rsync -avz --delete --exclude .git $(TIMER_DIR) $(SIM_USER)@$(SIM_SERVER):$(USER)/$(REMOTE_ROOT_DIR)
+	ssh $(SIM_USER)@$(SIM_SERVER) 'cd $(USER)/$(REMOTE_ROOT_DIR); make clean SIM_SERVER=localhost FPGA_SERVER=localhost'
+endif
+
+
 fpga:
 ifeq ($(FPGA_SERVER), localhost)
 	make -C $(FPGA_DIR) run DATA_W=$(DATA_W)
@@ -29,6 +51,6 @@ doc-clean:
 doc-pdfclean:
 	make -C document/$(DOC_TYPE) pdfclean
 
-clean: fpga-clean doc-clean
+clean: sim-clean fpga-clean doc-clean
 
-.PHONY: fpga fpga_clean doc doc-clean doc-pdfclean clean
+.PHONY: sim sim-waves fpga fpga_clean doc doc-clean doc-pdfclean clean

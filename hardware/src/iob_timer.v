@@ -1,6 +1,7 @@
 `timescale 1ns/1ps
 `include "iob_timer.vh"
 `include "iob_lib.vh"
+`include "interconnect.vh"
 
 module iob_timer 
   #(
@@ -10,8 +11,7 @@ module iob_timer
     )
    (
 `include "cpu_nat_s_if.v"
-    `INPUT(clk, 1),
-    `INPUT(rst, 1)
+`include "gen_if.v"
     );
 
 //BLOCK Register File & Configuration, control and status registers accessible by the sofware
@@ -26,15 +26,20 @@ module iob_timer
    `SIGNAL(write, 1) 
    `COMB write = | wstrb;
 
+   //
    //BLOCK 64-bit time counter & Free-running 64-bit counter with enable and soft reset capabilities
+   //
+   `SIGNAL_OUT(TIMER_VALUE, 2*DATA_W)
+   timer_core timer0
+     (
+      .TIMER_ENABLE(TIMER_ENABLE),
+      .TIMER_SAMPLE(TIMER_SAMPLE),
+      .TIMER_VALUE(TIMER_VALUE),
+      .clk(clk),
+      .rst(rst_int)
+      );
    
-   `SIGNAL(time_counter, 2*DATA_W)
-   `COUNTER_ARE(clk, rst_int, TIMER_ENABLE, time_counter)
-
-   //time counter register
-   `SIGNAL(counter_reg, 2*DATA_W)
-   `REG_E(clk, TIMER_SAMPLE, counter_reg, time_counter)
-
+   
    //ready signal   
    `SIGNAL(ready_int, 1)
    `REG_AR(clk, rst, 0, ready_int, valid)
@@ -43,8 +48,8 @@ module iob_timer
 
    //rdata signal
    `COMB begin
-      TIMER_DATA_LOW = counter_reg[DATA_W-1:0];
-      TIMER_DATA_HIGH = counter_reg[2*DATA_W-1:DATA_W];      
+      TIMER_DATA_LOW = TIMER_VALUE[DATA_W-1:0];
+      TIMER_DATA_HIGH = TIMER_VALUE[2*DATA_W-1:DATA_W];      
    end
       
 endmodule
