@@ -1,13 +1,13 @@
 `timescale 1ns/1ps
-`include "iob_timer.vh"
 `include "iob_lib.vh"
 `include "interconnect.vh"
+`include "iob_timer.vh"
 
 module iob_timer 
   #(
-    parameter ADDR_W = `TIMER_ADDR_W, //Address width
-    parameter DATA_W = 32, //NODOC Data word width
-    parameter WDATA_W = `TIMER_WDATA_W //Data word width on writes
+    parameter ADDR_W = `TIMER_ADDR_W, //NODOC Address width
+    parameter DATA_W = `DATA_W, //NODOC Data word width
+    parameter WDATA_W = `TIMER_WDATA_W //NODOC Data word width on writes
     )
    (
 `include "cpu_nat_s_if.v"

@@ -7,9 +7,7 @@ REG_TAB:=sw_reg_tab.tex
 
 BD_TAB:=bd_tab.tex
 
-SP_TAB:=sp_tab.tex
-
-SRC:=ug.tex $(wildcard ./*.tex) $(wildcard ../*.tex)  $(IS_TAB) $(REG_TAB) $(BD_TAB) $(SP_TAB)
+SRC:=ug.tex $(wildcard ./*.tex) $(wildcard ../*.tex)  $(IS_TAB) $(REG_TAB) $(BD_TAB)
 
 include $(TIMER_DIR)/submodules/TEX/document/document.mk
 
@@ -25,10 +23,7 @@ sw_reg_tab.tex: $(TIMER_HW_DIR)/include/sw_reg.v
 bd_tab.tex: $(TIMER_HW_DIR)/src/iob_timer.v
 	$(TEX_SW_DIR)/block2tex.py $@ $(TIMER_HW_DIR)/src/iob_timer.v
 
-sp_tab.tex: $(TIMER_HW_DIR)/src/iob_timer.v
-	$(TEX_SW_DIR)/param2tex.py $(TIMER_HW_DIR)/src/iob_timer.v $@ $(TIMER_HW_DIR)/include/iob_timer.vh
-
 clean: texclean
-	@rm -f $(IS_TAB) $(REG_TAB) $(BD_TAB) $(PARAM_TAB) $(SP_TAB)
+	@rm -f $(IS_TAB) $(REG_TAB) $(BD_TAB)
 
 .PHONY: clean

@@ -21,8 +21,8 @@ int main()
   elapsed  = timer_get_count(TIMER_BASE);
   elapsedu = timer_time_us(TIMER_BASE);
 
-  uart_printf("\nExecution time: %d clock cycles = %dus @%dMHz\n\n", 
-              (unsigned int)elapsed, elapsedu, FREQ/1000000);
+  uart_printf("\nExecution time: %d clock cycles\n", (unsigned int) elapsed);
+  uart_printf("\nExecution time: %dus @%dMHz\n\n", elapsedu, FREQ/1000000);
 
   uart_txwait();
   return 0;

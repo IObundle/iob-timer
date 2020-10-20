@@ -51,7 +51,7 @@ unsigned int timer_time_tu(int sample_rate) {
   //get time count
   unsigned long long timer_total = timer_get_count();
 
-  //number of clocks per us
+  //number of clocks per time unit
   unsigned long long ticks_per_tu = ((long long) FREQ)/sample_rate;
  
   //time in us
