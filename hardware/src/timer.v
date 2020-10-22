@@ -1,14 +1,15 @@
 `timescale 1ns/1ps
 `include "iob_lib.vh"
+`include "sw_reg_w.vh"
 
 module timer_core
   #(
     parameter DATA_W = 32
     )
    (
-    `INPUT(TIMER_ENABLE, 1),    
-    `INPUT(TIMER_SAMPLE, 1),    
-    `OUTPUT(TIMER_VALUE, 2*DATA_W),
+    `INPUT(TIMER_ENABLE, `TIMER_ENABLE_W),    
+    `INPUT(TIMER_SAMPLE, `TIMER_SAMPLE_W),    
+    `OUTPUT(TIMER_VALUE, `TIMER_DATA_LOW_W+`TIMER_DATA_HIGH_W),
     `INPUT(clk, 1),
     `INPUT(rst, 1)
     );
