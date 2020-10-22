@@ -1,9 +1,8 @@
 set TOP [lindex $argv 0]
-set PART xcku040-fbva676-1-c
-
 set VSRC [lindex $argv 1]
 set HW_INCLUDE [lindex $argv 2]
 set HW_DEFINE [lindex $argv 3]
+set PART [lindex $argv 4]
 
 puts $VSRC
 
