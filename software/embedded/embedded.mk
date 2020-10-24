@@ -1,4 +1,3 @@
-#uart common parameters
 include $(TIMER_DIR)/software/software.mk
 
 #embeded sources
