@@ -1,4 +1,4 @@
-CORE_NAME:=TIMER
+CORE_NAME=TIMER
 IS_CORE:=1
 USE_NETLIST ?=0
 
@@ -58,10 +58,8 @@ INTEL ?=1
 XILINX ?=1
 
 VLINE:="V$(VERSION)"
-version.txt:
+$(CORE_NAME)_version.txt:
 ifeq ($(VERSION),)
 	$(error "variable VERSION is not set")
 endif
-	echo $(VLINE) > $@
-
-.PHONY: version.txt
+	echo $(VLINE) > version.txt

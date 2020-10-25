@@ -1,7 +1,6 @@
 include $(TIMER_DIR)/core.mk
 
 #define
-DEFINE+=$(defmacro) DATA_W=32
 
 #include
 INCLUDE+=$(incdir) $(TIMER_HW_INC_DIR)

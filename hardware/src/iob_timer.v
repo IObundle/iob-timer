@@ -6,7 +6,7 @@
 module iob_timer 
   #(
     parameter ADDR_W = `TIMER_ADDR_W, //NODOC Address width
-    parameter DATA_W = `DATA_W, //NODOC Data word width
+    parameter DATA_W = 32, //NODOC Data word width
     parameter WDATA_W = `TIMER_WDATA_W //NODOC Data word width on writes
     )
    (
