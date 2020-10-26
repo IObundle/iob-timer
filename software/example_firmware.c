@@ -1,4 +1,3 @@
-//#include "stdlib.h"
 #include "system.h"
 #include "periphs.h"
 #include "iob-uart.h"
@@ -25,5 +24,4 @@ int main()
   uart_printf("\nExecution time: %dus @%dMHz\n\n", elapsedu, FREQ/1000000);
 
   uart_txwait();
-  return 0;
 }
