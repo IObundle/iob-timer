@@ -1,3 +1,11 @@
+#
+# TOP MAKEFILE
+#
+
+#
+# SIMULATE
+#
+
 TIMER_DIR:=.
 include core.mk
 
@@ -22,6 +30,9 @@ else
 	ssh $(SIM_USER)@$(SIM_SERVER) 'cd $(USER)/$(REMOTE_ROOT_DIR); make clean SIM_SERVER=localhost FPGA_SERVER=localhost'
 endif
 
+#
+# IMPLEMENT FPGA
+#
 
 fpga:
 ifeq ($(FPGA_SERVER), localhost)
@@ -41,6 +52,10 @@ else
 	rsync -avz --delete --exclude .git $(TIMER_DIR) $(FPGA_USER)@$(FPGA_SERVER):$(USER)/$(REMOTE_ROOT_DIR)
 	ssh $(FPGA_USER)@$(FPGA_SERVER) 'cd $(USER)/$(REMOTE_ROOT_DIR); make clean SIM_SERVER=localhost FPGA_SERVER=localhost'
 endif
+
+#
+# DOCUMENT
+#
 
 doc:
 	make -C document/$(DOC_TYPE) $(DOC_TYPE).pdf
