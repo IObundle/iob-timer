@@ -17,7 +17,7 @@ gen_is_tab.tex: $(INTERCON_DIR)/hardware/include/gen_if.v
 cpu_nat_s_is_tab.tex: $(INTERCON_DIR)/hardware/include/cpu_nat_s_if.v
 	$(TEX_SW_DIR)/io2tex.py $< $@
 
-sw_reg_tab.tex: $(TIMER_HW_DIR)/include/sw_reg.v
+sw_reg_tab.tex: $(TIMER_HW_DIR)/include/TIMERsw_reg.v
 	$(TEX_SW_DIR)/swreg2tex.py $<
 
 bd_tab.tex: $(TIMER_HW_DIR)/src/iob_timer.v

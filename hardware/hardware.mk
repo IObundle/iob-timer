@@ -11,18 +11,18 @@ INCLUDE+=$(incdir) $(INTERCON_DIR)/hardware/include
 VHDR+=$(wildcard $(TIMER_HW_INC_DIR)/*.vh)
 VHDR+=$(wildcard $(LIB_DIR)/hardware/include/*.vh)
 VHDR+=$(wildcard $(INTERCON_DIR)/hardware/include/*.vh $(INTERCON_DIR)/hardware/include/*.v)
-VHDR+=$(TIMER_HW_INC_DIR)/$(CORE_NAME)sw_reg_gen.v
+VHDR+=$(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v
 
 #sources
 TIMER_SRC_DIR:=$(TIMER_DIR)/hardware/src
 VSRC+=$(wildcard $(TIMER_HW_DIR)/src/*.v)
 
-$(TIMER_HW_INC_DIR)/$(CORE_NAME)sw_reg_gen.v: $(TIMER_HW_INC_DIR)/$(CORE_NAME)sw_reg.v
+$(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v: $(TIMER_HW_INC_DIR)/TIMERsw_reg.v
 	$(LIB_DIR)/software/mkregs.py $< HW
-	mv $(CORE_NAME)sw_reg_gen.v $(TIMER_HW_INC_DIR)
-	mv $(CORE_NAME)sw_reg_w.vh $(TIMER_HW_INC_DIR)
+	mv TIMERsw_reg_gen.v $(TIMER_HW_INC_DIR)
+	mv TIMERsw_reg_w.vh $(TIMER_HW_INC_DIR)
 
-clean_hw:
-	@rm -rf $(TIMER_HW_INC_DIR)/$(CORE_NAME)sw_reg_gen.v $(TIMER_HW_INC_DIR)/$(CORE_NAME)sw_reg_w.vh tmp $(TIMER_HW_DIR)/fpga/vivado/XCKU $(TIMER_HW_DIR)/fpga/quartus/CYCLONEV-GT
+timer_clean_hw:
+	@rm -rf $(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v $(TIMER_HW_INC_DIR)/TIMERsw_reg_w.vh tmp $(TIMER_HW_DIR)/fpga/vivado/XCKU $(TIMER_HW_DIR)/fpga/quartus/CYCLONEV-GT
 
-.PHONY: clean_hw
+.PHONY: timer_clean_hw

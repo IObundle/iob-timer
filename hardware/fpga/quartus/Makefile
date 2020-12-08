@@ -7,7 +7,7 @@ run: $(FPGA_OBJ)
 	if [ -f $(FPGA_FAMILY)/output_files/*.fit.summary ]; \
 	then mv $(FPGA_FAMILY)/output_files/*.fit.summary $(FPGA_FAMILY)/quartus.log; fi
 
-clean: clean_hw
+clean: timer_clean_hw
 	 rm -rf $(FPGA_FAMILY) *.v *.vh
 
 .PHONY: clean
