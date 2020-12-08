@@ -7,8 +7,8 @@ TIMER_SW_DIR:=$(TIMER_DIR)/software
 INCLUDE+=-I$(TIMER_SW_DIR)
 
 #headers
-HDR+=$(TIMER_SW_DIR)/*.h $(TIMER_SW_DIR)/timer_sw_reg.h
+HDR+=$(TIMER_SW_DIR)/*.h $(TIMER_SW_DIR)/$(CORE_NAME)sw_reg.h
 
-$(TIMER_SW_DIR)/timer_sw_reg.h: $(TIMER_HW_INC_DIR)/sw_reg.v
+$(TIMER_SW_DIR)/$(CORE_NAME)sw_reg.h: $(TIMER_HW_INC_DIR)/$(CORE_NAME)sw_reg.v
 	$(LIB_DIR)/software/mkregs.py $< SW
-	mv sw_reg.h $@
+	mv $(CORE_NAME)sw_reg.h $@

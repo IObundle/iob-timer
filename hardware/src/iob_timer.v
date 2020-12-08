@@ -15,8 +15,8 @@ module iob_timer
     );
 
 //BLOCK Register File & Configuration, control and status registers accessible by the sofware
-`include "sw_reg.v"
-`include "sw_reg_gen.v"
+`include "TIMERsw_reg.v"
+`include "TIMERsw_reg_gen.v"
 
     //combined hard/soft reset 
    `SIGNAL(rst_int, 1)

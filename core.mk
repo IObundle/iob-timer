@@ -11,9 +11,11 @@ TIMER_HW_DIR:=$(TIMER_DIR)/hardware
 TIMER_HW_INC_DIR:=$(TIMER_HW_DIR)/include
 TIMER_DOC_DIR:=$(TIMER_DIR)/document
 TIMER_SUBMODULES_DIR:=$(TIMER_DIR)/submodules
-INTERCON_DIR:=$(TIMER_DIR)/submodules/INTERCON
-LIB_DIR:=$(TIMER_DIR)/submodules/LIB
-TEX_DIR:=$(TIMER_DIR)/submodules/TEX
+
+#submodules
+TIMER_SUBMODULES:=INTERCON LIB TEX
+$(foreach p, $(TIMER_SUBMODULES), $(eval $p_DIR:=$(TIMER_DIR)/submodules/$p))
+
 REMOTE_ROOT_DIR ?= sandbox/iob-soc/submodules/TIMER
 
 #

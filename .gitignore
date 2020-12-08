@@ -1,7 +1,7 @@
 hardware/fpga/vivado/XCKU
 hardware/fpga/quartus/CYCLONEV-GT
 
-software/timer_sw_reg.h
+software/TIMERsw_reg.h
 
 document/figures/bd.pdf
 document/figures/bg.pdf
@@ -29,7 +29,7 @@ document/ug/ug.toc
 document/ug/version.txt
 document/ug/vivado.log
 document/ug/xil_results.tex
-hardware/include/sw_reg_gen.v
-hardware/include/sw_reg_w.vh
+hardware/include/TIMERsw_reg_gen.v
+hardware/include/TIMERsw_reg_w.vh
 hardware/simulation/icarus/a.out
 hardware/simulation/icarus/timer.vcd

@@ -1,6 +1,6 @@
 #include "interconnect.h"
 #include "iob_timer.h"
-#include "timer_sw_reg.h"
+#include "TIMERsw_reg.h"
 
 //base address
 static int base;
