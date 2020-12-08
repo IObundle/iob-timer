@@ -23,6 +23,6 @@ $(TIMER_HW_INC_DIR)/$(CORE_NAME)sw_reg_gen.v: $(TIMER_HW_INC_DIR)/$(CORE_NAME)sw
 	mv $(CORE_NAME)sw_reg_w.vh $(TIMER_HW_INC_DIR)
 
 clean_hw:
-	@rm -rf $(TIMER_HW_INC_DIR)/sw_reg_gen.v $(TIMER_HW_INC_DIR)/sw_reg_w.vh tmp $(TIMER_HW_DIR)/fpga/vivado/XCKU $(TIMER_HW_DIR)/fpga/quartus/CYCLONEV-GT
+	@rm -rf $(TIMER_HW_INC_DIR)/$(CORE_NAME)sw_reg_gen.v $(TIMER_HW_INC_DIR)/$(CORE_NAME)sw_reg_w.vh tmp $(TIMER_HW_DIR)/fpga/vivado/XCKU $(TIMER_HW_DIR)/fpga/quartus/CYCLONEV-GT
 
 .PHONY: clean_hw
