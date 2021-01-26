@@ -21,5 +21,5 @@ int main()
   uart_printf("\nExecution time: %d clock cycles\n", (unsigned int) elapsed);
   uart_printf("\nExecution time: %dus @%dMHz\n\n", elapsedu, FREQ/1000000);
 
-  uart_txwait();
+  uart_finish();
 }
