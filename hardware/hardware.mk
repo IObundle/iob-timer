@@ -5,7 +5,7 @@ include $(TIMER_DIR)/core.mk
 #include
 INCLUDE+=$(incdir) $(TIMER_HW_INC_DIR)
 INCLUDE+=$(incdir) $(LIB_DIR)/hardware/include
-INCLUDE+=$(incdir) $(INTERCON_DIR)/hardware/include 
+INCLUDE+=$(incdir) $(INTERCON_DIR)/hardware/include
 
 #headers
 VHDR+=$(wildcard $(TIMER_HW_INC_DIR)/*.vh)
@@ -20,9 +20,9 @@ VSRC+=$(wildcard $(TIMER_HW_DIR)/src/*.v)
 $(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v: $(TIMER_HW_INC_DIR)/TIMERsw_reg.v
 	$(LIB_DIR)/software/mkregs.py $< HW
 	mv TIMERsw_reg_gen.v $(TIMER_HW_INC_DIR)
-	mv TIMERsw_reg_w.vh $(TIMER_HW_INC_DIR)
+	mv TIMERsw_reg.vh $(TIMER_HW_INC_DIR)
 
 timer_clean_hw:
-	@rm -rf $(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v $(TIMER_HW_INC_DIR)/TIMERsw_reg_w.vh tmp $(TIMER_HW_DIR)/fpga/vivado/XCKU $(TIMER_HW_DIR)/fpga/quartus/CYCLONEV-GT
+	@rm -rf $(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v $(TIMER_HW_INC_DIR)/TIMERsw_reg.vh tmp $(TIMER_HW_DIR)/fpga/vivado/XCKU $(TIMER_HW_DIR)/fpga/quartus/CYCLONEV-GT
 
 .PHONY: timer_clean_hw
