@@ -1,16 +1,20 @@
 include $(TIMER_DIR)/core.mk
 
+#submodules
+ifneq (INTERCON,$(filter INTERCON, $(SUBMODULES)))
+SUBMODULES+=INTERCON
+include $(INTERCON_DIR)/hardware/hardware.mk
+endif
+
 #define
 
 #include
 INCLUDE+=$(incdir) $(TIMER_HW_INC_DIR)
 INCLUDE+=$(incdir) $(LIB_DIR)/hardware/include
-INCLUDE+=$(incdir) $(INTERCON_DIR)/hardware/include
 
 #headers
 VHDR+=$(wildcard $(TIMER_HW_INC_DIR)/*.vh)
 VHDR+=$(wildcard $(LIB_DIR)/hardware/include/*.vh)
-VHDR+=$(wildcard $(INTERCON_DIR)/hardware/include/*.vh $(INTERCON_DIR)/hardware/include/*.v)
 VHDR+=$(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v
 
 #sources
