@@ -3,7 +3,6 @@
 IOb-TIMER is 64-bit hardware timer peripheral, equipped with reset, enable and
 reading functions. It includes a software direver and an example C application.
 
-
 ## Clone the repository
 
 ``git clone --recursive git@github.com:IObundle/iob-timer.git``
