@@ -1,5 +1,3 @@
-#exports software embedded stuff to system; TIMER_DIR defined in system.mk
-
 include $(TIMER_DIR)/software/software.mk
 
 #embeded sources
