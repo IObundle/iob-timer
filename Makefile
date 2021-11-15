@@ -1,71 +1,57 @@
-#
-# TOP MAKEFILE
-#
+TIMER_DIR:=.
+include core.mk
 
 #
 # SIMULATE
 #
 
-TIMER_DIR:=.
-include core.mk
-
 sim:
-ifeq ($(SIM_SERVER), localhost)
-	make -C $(SIM_DIR) run SIMULATOR=$(SIMULATOR)
-else
-	ssh $(SIM_USER)@$(SIM_SERVER) "if [ ! -d $(USER)/$(REMOTE_ROOT_DIR) ]; then mkdir -p $(USER)/$(REMOTE_ROOT_DIR); fi"
-	make -C $(SIM_DIR) clean
-	rsync -avz --delete --exclude .git $(TIMER_DIR) $(SIM_USER)@$(SIM_SERVER):$(USER)/$(REMOTE_ROOT_DIR)
-	ssh $(SIM_USER)@$(SIM_SERVER) 'cd $(USER)/$(REMOTE_ROOT_DIR); make -C $(SIM_DIR) run SIMULATOR=$(SIMULATOR) SIM_SERVER=localhost'
-endif
-
-sim-waves:
-	gtkwave $(SIM_DIR)/timer.vcd &
+	make -C $(SIM_DIR) run
 
 sim-clean:
-ifeq ($(SIM_SERVER), localhost)
 	make -C $(SIM_DIR) clean
-else 
-	rsync -avz --delete --exclude .git $(TIMER_DIR) $(SIM_USER)@$(SIM_SERVER):$(USER)/$(REMOTE_ROOT_DIR)
-	ssh $(SIM_USER)@$(SIM_SERVER) 'cd $(USER)/$(REMOTE_ROOT_DIR); make clean SIM_SERVER=localhost FPGA_SERVER=localhost'
-endif
 
 #
-# IMPLEMENT FPGA
+# FPGA COMPILE
 #
 
-fpga:
-ifeq ($(FPGA_SERVER), localhost)
-	make -C $(FPGA_DIR) run DATA_W=$(DATA_W)
-else 
-	ssh $(FPGA_USER)@$(FPGA_SERVER) "if [ ! -d $(USER)/$(REMOTE_ROOT_DIR) ]; then mkdir -p $(USER)/$(REMOTE_ROOT_DIR); fi"
-	rsync -avz --delete --exclude .git $(TIMER_DIR) $(FPGA_USER)@$(FPGA_SERVER):$(USER)/$(REMOTE_ROOT_DIR)
-	ssh $(FPGA_USER)@$(FPGA_SERVER) 'cd $(USER)/$(REMOTE_ROOT_DIR); make -C $(FPGA_DIR) run FPGA_FAMILY=$(FPGA_FAMILY) FPGA_SERVER=localhost'
-	mkdir -p $(FPGA_DIR)/$(FPGA_FAMILY)
-	scp $(FPGA_USER)@$(FPGA_SERVER):$(REMOTE_ROOT_DIR)/$(FPGA_DIR)/$(FPGA_FAMILY)/$(FPGA_LOG) $(FPGA_DIR)/$(FPGA_FAMILY)
-endif
+fpga-build:
+	make -C $(FPGA_DIR) build
+
+fpga-build-all:
+	$(foreach s, $(FPGA_FAMILY_LIST), make fpga-build FPGA_FAMILY=$s;)
 
 fpga-clean:
-ifeq ($(FPGA_SERVER), localhost)
 	make -C $(FPGA_DIR) clean
-else 
-	rsync -avz --delete --exclude .git $(TIMER_DIR) $(FPGA_USER)@$(FPGA_SERVER):$(USER)/$(REMOTE_ROOT_DIR)
-	ssh $(FPGA_USER)@$(FPGA_SERVER) 'cd $(USER)/$(REMOTE_ROOT_DIR); make clean SIM_SERVER=localhost FPGA_SERVER=localhost'
-endif
+
+fpga-clean-all:
+	$(foreach s, $(FPGA_FAMILY_LIST), make fpga-clean FPGA_FAMILY=$s;)
+
 
 #
 # DOCUMENT
 #
 
-doc:
-	make -C document/$(DOC_TYPE) $(DOC_TYPE).pdf
+doc-build: fpga-build-all
+	make -C $(DOC_DIR) all
+
+doc-build-all:
+	$(foreach s, $(DOC_LIST), make doc-build DOC=$s;)
+
 
 doc-clean:
-	make -C document/$(DOC_TYPE) clean
+	make -C $(DOC_DIR) clean
 
-doc-pdfclean:
-	make -C document/$(DOC_TYPE) pdfclean
+doc-clean-all:
+	$(foreach s, $(DOC_LIST), make doc-clean DOC=$s;)
 
-clean: sim-clean fpga-clean doc-clean
 
-.PHONY: sim sim-waves fpga fpga_clean doc doc-clean doc-pdfclean clean
+#
+# CLEAN ALL
+# 
+
+clean: sim-clean fpga-clean-all doc-clean doc-clean-all 
+
+.PHONY: sim sim-clean fpga-build fpga-build-all fpga-clean fpga-clean-all\
+	doc-build doc-build-all doc-clean doc-clean-all clean
+

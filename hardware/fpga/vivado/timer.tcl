@@ -1,3 +1,4 @@
+#extract cli args
 set TOP [lindex $argv 0]
 set VSRC [lindex $argv 1]
 set HW_INCLUDE [lindex $argv 2]

@@ -6,27 +6,29 @@ SUBMODULES+=INTERCON
 include $(INTERCON_DIR)/hardware/hardware.mk
 endif
 
+#lib
+ifneq (LIB,$(filter LIB, $(SUBMODULES)))
+SUBMODULES+=LIB
+INCLUDE+=$(incdir) $(LIB_DIR)/hardware/include
+VHDR+=$(wildcard $(LIB_DIR)/hardware/include/*.vh)
+endif
+
 #define
 
 #include
 INCLUDE+=$(incdir) $(TIMER_HW_INC_DIR)
-INCLUDE+=$(incdir) $(LIB_DIR)/hardware/include
 
 #headers
 VHDR+=$(wildcard $(TIMER_HW_INC_DIR)/*.vh)
-VHDR+=$(wildcard $(LIB_DIR)/hardware/include/*.vh)
-VHDR+=$(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v
+VHDR+=TIMERsw_reg_gen.v TIMERsw_reg.vh
 
 #sources
-TIMER_SRC_DIR:=$(TIMER_DIR)/hardware/src
-VSRC+=$(wildcard $(TIMER_HW_DIR)/src/*.v)
+VSRC+=$(wildcard $(TIMER_SRC_DIR)/*.v)
 
-$(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v $(TIMER_HW_INC_DIR)/TIMERsw_reg.vh: $(TIMER_HW_INC_DIR)/TIMERsw_reg.v
+TIMERsw_reg_gen.v TIMERsw_reg.vh: $(TIMER_HW_INC_DIR)/TIMERsw_reg.v
 	$(LIB_DIR)/software/mkregs.py $< HW
-	mv TIMERsw_reg_gen.v $(TIMER_HW_INC_DIR)
-	mv TIMERsw_reg.vh $(TIMER_HW_INC_DIR)
 
 timer_clean_hw:
-	@rm -rf $(TIMER_HW_INC_DIR)/TIMERsw_reg_gen.v $(TIMER_HW_INC_DIR)/TIMERsw_reg.vh tmp $(TIMER_HW_DIR)/fpga/vivado/XCKU $(TIMER_HW_DIR)/fpga/quartus/CYCLONEV-GT
+	@rm -rf TIMERsw_reg_gen.v TIMERsw_reg.vh tmp
 
 .PHONY: timer_clean_hw
