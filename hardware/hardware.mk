@@ -16,16 +16,16 @@ endif
 #define
 
 #include
-INCLUDE+=$(incdir) $(TIMER_HW_INC_DIR)
+INCLUDE+=$(incdir) $(TIMER_INC_DIR)
 
 #headers
-VHDR+=$(wildcard $(TIMER_HW_INC_DIR)/*.vh)
+VHDR+=$(wildcard $(TIMER_INC_DIR)/*.vh)
 VHDR+=TIMERsw_reg_gen.v TIMERsw_reg.vh
 
 #sources
 VSRC+=$(wildcard $(TIMER_SRC_DIR)/*.v)
 
-TIMERsw_reg_gen.v TIMERsw_reg.vh: $(TIMER_HW_INC_DIR)/TIMERsw_reg.v
+TIMERsw_reg_gen.v TIMERsw_reg.vh: $(TIMER_INC_DIR)/TIMERsw_reg.v
 	$(LIB_DIR)/software/mkregs.py $< HW
 
 timer_clean_hw:
