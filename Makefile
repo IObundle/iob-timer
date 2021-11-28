@@ -1,5 +1,8 @@
 TIMER_DIR:=.
-include core.mk
+include config.mk
+
+corename:
+	@echo "TIMER"
 
 #
 # SIMULATE
@@ -11,12 +14,10 @@ sim:
 sim-clean:
 	make -C $(SIM_DIR) clean
 
-
 #
 # CLEAN ALL
 # 
 
 clean: sim-clean
 
-.PHONY: sim sim-clean clean
-
+.PHONY: corename sim sim-clean clean
