@@ -1,4 +1,7 @@
-include $(TIMER_DIR)/core.mk
+include $(TIMER_DIR)/config.mk
+
+#add itself to MODULES list
+MODULES+=$(shell make -C $(TIMER_DIR) corename | grep -v make)
 
 #include
 INCLUDE+=-I$(TIMER_SW_DIR)

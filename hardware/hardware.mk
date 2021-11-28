@@ -1,22 +1,15 @@
-include $(TIMER_DIR)/core.mk
+include $(TIMER_DIR)/config.mk
 
-#submodules
-ifneq (INTERCON,$(filter INTERCON, $(SUBMODULES)))
-SUBMODULES+=INTERCON
-include $(INTERCON_DIR)/hardware/hardware.mk
-endif
+#add itself to MODULES list
+MODULES+=$(shell make -C $(TIMER_DIR) corename | grep -v make)
 
-#lib
-ifneq (LIB,$(filter LIB, $(SUBMODULES)))
-SUBMODULES+=LIB
-INCLUDE+=$(incdir) $(LIB_DIR)/hardware/include
-VHDR+=$(wildcard $(LIB_DIR)/hardware/include/*.vh)
-endif
+#include submodule's hardware
+$(foreach p, $(SUBMODULES), $(if $(filter $p, $(MODULES)),,$(eval include $($p_DIR)/hardware/hardware.mk)))
 
 #define
 
 #include
-INCLUDE+=$(incdir) $(TIMER_INC_DIR)
+INCLUDE+=$(incdir)$(TIMER_INC_DIR)
 
 #headers
 VHDR+=$(wildcard $(TIMER_INC_DIR)/*.vh)
