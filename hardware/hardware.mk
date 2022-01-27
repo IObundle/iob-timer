@@ -19,7 +19,7 @@ VHDR+=TIMERsw_reg_gen.v TIMERsw_reg.vh
 VSRC+=$(wildcard $(TIMER_SRC_DIR)/*.v)
 
 TIMERsw_reg_gen.v TIMERsw_reg.vh: $(TIMER_INC_DIR)/TIMERsw_reg.v
-	$(LIB_DIR)/software/mkregs.py $< HW
+	$(LIB_DIR)/software/python/mkregs.py $< HW
 
 timer_clean_hw:
 	@rm -rf TIMERsw_reg_gen.v TIMERsw_reg.vh tmp
