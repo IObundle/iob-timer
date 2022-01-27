@@ -10,4 +10,4 @@ INCLUDE+=-I$(TIMER_SW_DIR)
 HDR+=$(TIMER_SW_DIR)/*.h TIMERsw_reg.h
 
 TIMERsw_reg.h: $(TIMER_INC_DIR)/TIMERsw_reg.v
-	$(LIB_DIR)/software/mkregs.py $< SW
+	$(LIB_DIR)/software/python/mkregs.py $< SW
