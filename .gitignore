@@ -30,6 +30,6 @@ document/ug/version.txt
 document/ug/vivado.log
 document/ug/xil_results.tex
 hardware/include/TIMERsw_reg_gen.v
-hardware/include/TIMERsw_reg.vh
+hardware/include/TIMERsw_reg_def.vh
 hardware/simulation/icarus/a.out
 hardware/simulation/icarus/timer.vcd

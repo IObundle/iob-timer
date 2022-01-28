@@ -13,9 +13,8 @@ SIM_DIR ?=$(TIMER_SIM_DIR)
 SUBMODULES_DIR:=$(TIMER_DIR)/submodules
 
 # SUBMODULE PATHS
-SUBMODULES=
-SUBMODULE_DIRS=$(shell ls $(SUBMODULES_DIR))
-$(foreach d, $(SUBMODULE_DIRS), $(eval TMP=$(shell make -C $(SUBMODULES_DIR)/$d corename | grep -v make)) $(eval SUBMODULES+=$(TMP)) $(eval $(TMP)_DIR ?=$(SUBMODULES_DIR)/$d))
+SUBMODULES_DIR_LIST=$(shell ls $(SUBMODULES_DIR))
+$(foreach d, $(SUBMODULES_DIR_LIST), $(eval $d_DIR ?=$(SUBMODULES_DIR)/$d))
 
 # VERSION
 VERSION ?=0.1
