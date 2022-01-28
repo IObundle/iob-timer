@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 `include "iob_lib.vh"
-`include "interconnect.vh"
+`include "iob_intercon.vh"
 `include "iob_timer.vh"
 
 module iob_timer
@@ -10,26 +10,26 @@ module iob_timer
     parameter WDATA_W = `TIMER_WDATA_W //NODOC Data word width on writes
     )
    (
-`include "cpu_nat_s_if.v"
-`include "gen_if.v"
+`include "cpu_nat_s_if.vh"
+`include "gen_if.vh"
     );
 
 //BLOCK Register File & Configuration, control and status registers accessible by the sofware
-`include "TIMERsw_reg.v"
-`include "TIMERsw_reg_gen.v"
+`include "TIMERsw_reg.vh"
+`include "TIMERsw_reg_gen.vh"
 
     //combined hard/soft reset
-   `SIGNAL(rst_int, 1)
+   `VAR(rst_int, 1)
    `COMB rst_int = rst | TIMER_RESET;
 
    //write signal
-   `SIGNAL(write, 1)
+   `VAR(write, 1)
    `COMB write = | wstrb;
 
    //
    //BLOCK 64-bit time counter & Free-running 64-bit counter with enable and soft reset capabilities
    //
-   `SIGNAL_OUT(TIMER_VALUE, 2*DATA_W)
+   `WIRE(TIMER_VALUE, 2*DATA_W)
    timer_core timer0
      (
       .TIMER_ENABLE(TIMER_ENABLE),

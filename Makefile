@@ -1,9 +1,6 @@
 TIMER_DIR:=.
 include config.mk
 
-corename:
-	@echo "TIMER"
-
 #
 # SIMULATE
 #

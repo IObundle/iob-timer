@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 `include "iob_lib.vh"
-`include "interconnect.vh"
+`include "iob_intercon.vh"
 
 module timer_tb;
 
@@ -9,9 +9,9 @@ module timer_tb;
    `CLOCK(clk, PER)
    `RESET(rst, 7, 10)
 
-   `SIGNAL(TIMER_ENABLE, 1)
-   `SIGNAL(TIMER_SAMPLE, 1)
-   `SIGNAL_OUT(TIMER_VALUE, 2*`DATA_W)
+   `VAR(TIMER_ENABLE, 1)
+   `VAR(TIMER_SAMPLE, 1)
+   `WIRE(TIMER_VALUE, 2*`DATA_W)
    
    initial begin
 `ifdef VCD

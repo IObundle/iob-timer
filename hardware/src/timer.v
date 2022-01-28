@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 `include "iob_lib.vh"
-`include "TIMERsw_reg.vh"
+`include "TIMERsw_reg_def.vh"
 
 module timer_core
   #(
@@ -15,15 +15,15 @@ module timer_core
     );
 
 
-   `SIGNAL(time_counter, 2*DATA_W)
+   `VAR(time_counter, 2*DATA_W)
    `COUNTER_ARE(clk, rst, TIMER_ENABLE, time_counter)
 
    //time counter register
-   `SIGNAL(counter_reg, 2*DATA_W)
+   `VAR(counter_reg, 2*DATA_W)
 
    `REG_E(clk, TIMER_SAMPLE, counter_reg, time_counter)
    //always @(negedge clk) if(TIMER_SAMPLE)  counter_reg <= time_counter;
 
-   `SIGNAL2OUT(TIMER_VALUE, counter_reg)
+   `VAR2WIRE(TIMER_VALUE, counter_reg)
 
 endmodule
