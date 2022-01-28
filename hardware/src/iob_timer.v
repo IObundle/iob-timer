@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `include "iob_lib.vh"
 `include "iob_intercon.vh"
-`include "iob_timer.vh"
+`include "TIMER.vh"
 
 module iob_timer
   #(
