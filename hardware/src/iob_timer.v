@@ -10,7 +10,7 @@ module iob_timer
     parameter WDATA_W = `TIMER_WDATA_W //NODOC Data word width on writes
     )
    (
-`include "cpu_nat_s_if.vh"
+`include "iob_s_if.vh"
 `include "gen_if.vh"
     );
 

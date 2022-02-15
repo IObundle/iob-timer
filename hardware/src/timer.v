@@ -22,8 +22,7 @@ module timer_core
    `VAR(counter_reg, 2*DATA_W)
 
    `REG_E(clk, TIMER_SAMPLE, counter_reg, time_counter)
-   //always @(negedge clk) if(TIMER_SAMPLE)  counter_reg <= time_counter;
 
-   `VAR2WIRE(TIMER_VALUE, counter_reg)
+   `VAR2WIRE(counter_reg, TIMER_VALUE)
 
 endmodule
