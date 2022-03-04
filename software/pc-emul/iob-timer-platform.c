@@ -104,36 +104,3 @@ int IO_GET(int base, int location){
 
     return ret_val;
 }
-
-/* //counter with 1us resolution and max value of 1h11 */
-/* unsigned int timer_time_us() { */
-
-/*   // get current time */
-/*   end  = clock(); */
-/*   // get difference in seconds */
-/*   double time_dif_secs = (double) (end - start) / CLOCKS_PER_SEC; */
-/*   //return time in us */
-/*   return (unsigned int) (time_dif_secs * 1000000); */
-/* } */
-
-/* //counter with 1ms resolution and max value of over 49 days */
-/* unsigned int timer_time_ms() { */
-
-/*   // get current time */
-/*   end  = clock(); */
-/*   // get difference in seconds */
-/*   double time_dif_secs = (double) (end - start) / CLOCKS_PER_SEC; */
-/*   //return time in ms */
-/*   return (unsigned int) (time_dif_secs * 1000); */
-/* } */
-
-/* //counter with 1s resolution and max value of over 136 years */
-/* unsigned int timer_time_s() { */
-
-/*   // get current time */
-/*   end  = clock(); */
-/*   // get difference in seconds */
-/*   double time_dif_secs = (double) (end - start) / CLOCKS_PER_SEC; */
-/*   //return time in us */
-/*   return (unsigned int) (time_dif_secs); */
-/* } */
