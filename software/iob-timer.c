@@ -1,5 +1,5 @@
 #include "iob-lib.h"
-#include "iob_timer.h"
+#include "iob-timer.h"
 #include "TIMERsw_reg.h"
 
 //base address
@@ -46,18 +46,21 @@ unsigned long long timer_get_count() {
 } 
 
 //get time in specified time unit (inverse of sample rate)
+// timer_time_tu(1):        time in seconds
+// timer_time_tu(1000):     time in milliseconds
+// timer_time_tu(1000000):  time in microseconds
 unsigned int timer_time_tu(int sample_rate) {
 
   //get time count
   unsigned long long timer_total = timer_get_count();
 
   //number of clocks per time unit
-  unsigned long long ticks_per_tu = ((long long) FREQ)/sample_rate;
+  float ticks_per_tu = ( (float) FREQ)/sample_rate;
  
   //time in us
-  unsigned long long time_tu = timer_total/ticks_per_tu;
+  float time_tu = timer_total / ticks_per_tu;
  
-  return (int) time_tu;
+  return (unsigned int) time_tu;
 }
 
 //get time in us
