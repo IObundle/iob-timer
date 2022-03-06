@@ -12,9 +12,18 @@ sim-clean:
 	make -C $(SIM_DIR) clean
 
 #
+# TESTER
+#
+tester-sim:
+	make -C $(TESTER_DIR) sim CORE_UT=TIMER
+
+tester-fpga-build:
+	make -C $(TESTER_DIR) fpga-build CORE_UT=TIMER
+
+#
 # CLEAN ALL
 # 
 
 clean: sim-clean
 
-.PHONY: corename sim sim-clean clean
+.PHONY: corename sim sim-clean tester-sim tester-fpga-build clean

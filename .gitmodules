@@ -3,5 +3,4 @@
 	url = git@github.com:IObundle/iob-lib.git
 [submodule "submodules/TESTER"]
 	path = submodules/TESTER
-	url = git@github.com:arturum1/iob-soc.git
-	branch = tester
+	url = git@github.com:arturum1/iob-soc-tester.git
