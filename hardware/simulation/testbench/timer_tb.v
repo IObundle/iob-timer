@@ -6,12 +6,12 @@ module timer_tb;
 
    localparam PER=10;
    
-   `CLOCK(clk, PER)
-   `RESET(rst, 7, 10)
+   `IOB_CLOCK(clk, PER)
+   `IOB_RESET(rst, 7, 10)
 
-   `VAR(TIMER_ENABLE, 1)
-   `VAR(TIMER_SAMPLE, 1)
-   `WIRE(TIMER_VALUE, 2*`DATA_W)
+   `IOB_VAR(TIMER_ENABLE, 1)
+   `IOB_VAR(TIMER_SAMPLE, 1)
+   `IOB_WIRE(TIMER_VALUE, 2*`DATA_W)
    
    initial begin
 `ifdef VCD
