@@ -1,5 +1,3 @@
-TOP_MODULE=iob_timer
-
 DATA_W=32
 
 #PATHS
@@ -18,5 +16,5 @@ $(foreach d, $(SUBMODULES_DIR_LIST), $(eval $d_DIR ?=$(SUBMODULES_DIR)/$d))
 
 # VERSION
 VERSION ?=V0.1
-$(TOP_MODULE)_version.txt:
+iob_timer_version.txt:
 	echo $(VERSION) > version.txt
