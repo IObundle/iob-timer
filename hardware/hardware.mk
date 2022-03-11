@@ -12,16 +12,16 @@ INCLUDE+=$(incdir)$(TIMER_INC_DIR) $(incdir)$(LIB_DIR)/hardware/include
 
 #headers
 VHDR+=$(wildcard $(TIMER_INC_DIR)/*.vh)
-VHDR+=TIMERsw_reg_gen.vh TIMERsw_reg.vh
+VHDR+=$(TOP_MODULE)_swreg_gen.vh $(TOP_MODULE)_swreg_def.vh
 
 #sources
 VSRC+=$(wildcard $(TIMER_SRC_DIR)/*.v)
 
-TIMERsw_reg_gen.vh TIMERsw_reg.vh: $(TIMER_INC_DIR)/TIMERsw_reg.vh
+$(TOP_MODULE)_swreg_gen.vh $(TOP_MODULE)_swreg_def.vh: $(TIMER_INC_DIR)/$(TOP_MODULE)_swreg.vh
 	$(LIB_DIR)/software/python/mkregs.py $< HW
 
 timer_clean_hw:
-	@rm -rf TIMERsw_reg_gen.vh TIMERsw_reg.vh tmp
+	@rm -rf $(TOP_MODULE)_swreg_gen.vh $(TOP_MODULE)_swreg_def.vh tmp
 
 .PHONY: timer_clean_hw
 endif

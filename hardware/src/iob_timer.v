@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `include "iob_lib.vh"
 `include "iob_intercon.vh"
-`include "TIMER.vh"
+`include "iob_timer.vh"
 
 module iob_timer
   #(
@@ -15,8 +15,8 @@ module iob_timer
     );
 
 //BLOCK Register File & Configuration, control and status registers accessible by the sofware
-`include "TIMERsw_reg.vh"
-`include "TIMERsw_reg_gen.vh"
+`include "iob_timer_swreg.vh"
+`include "iob_timer_swreg_gen.vh"
 
     //combined hard/soft reset
    `VAR(rst_int, 1)
