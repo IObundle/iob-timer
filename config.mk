@@ -17,10 +17,6 @@ SUBMODULES_DIR_LIST=$(shell ls $(SUBMODULES_DIR))
 $(foreach d, $(SUBMODULES_DIR_LIST), $(eval $d_DIR ?=$(SUBMODULES_DIR)/$d))
 
 # VERSION
-VERSION ?=0.1
-VLINE ?="V$(VERSION)"
-TIMER_version.txt:
-ifeq ($(VERSION),)
-	$(error "variable VERSION is not set")
-endif
-	echo $(VLINE) > version.txt
+VERSION ?=V0.1
+$(TOP_MODULE)_version.txt:
+	echo $(VERSION) > version.txt
