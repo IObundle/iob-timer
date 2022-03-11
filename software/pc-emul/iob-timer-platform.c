@@ -1,5 +1,5 @@
 #include "iob-lib.h"
-#include "TIMERsw_reg.h"
+#include "iob_timer_swreg.h"
 #include <time.h>
 
 /* convert clock values from PC CLOCK FREQ to EMBEDDED FREQ */
