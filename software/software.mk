@@ -4,11 +4,11 @@ include $(TIMER_DIR)/config.mk
 INCLUDE+=-I$(TIMER_SW_DIR)
 
 #headers
-HDR+=$(TIMER_SW_DIR)/*.h $(TOP_MODULE)_swreg.h
+HDR+=$(TIMER_SW_DIR)/*.h iob_timer_swreg.h
 
 #sources
 SRC+=$(TIMER_SW_DIR)/iob-timer.c
 
-$(TOP_MODULE)_swreg.h: $(TIMER_INC_DIR)/$(TOP_MODULE)_swreg.vh
+iob_timer_swreg.h: $(TIMER_INC_DIR)/iob_timer_swreg.vh
 	$(LIB_DIR)/software/python/mkregs.py $< SW
 
