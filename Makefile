@@ -25,5 +25,6 @@ tester-fpga-build:
 # 
 
 clean: sim-clean
+	make -C $(TESTER_DIR) clean CORE_UT=TIMER
 
 .PHONY: corename sim sim-clean tester-sim tester-fpga-build clean
