@@ -6,6 +6,8 @@ SW_MODULES+=TIMER
 #uart common parameters
 include $(TIMER_DIR)/software/software.mk
 
-#embeded sources
-SRC+=$(TIMER_SW_DIR)/pc-emul/iob-timer-platform.c
+#pc-emul headers
+HDR+=$(TIMER_SW_DIR)/pc-emul/iob-timer-platform.h
+INCLUDE+=$(incdir)$(TIMER_SW_DIR)/pc-emul
+
 endif
