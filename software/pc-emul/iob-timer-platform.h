@@ -1,4 +1,5 @@
-#include "iob-lib.h"
+#ifdef PC
+
 #include "iob_timer_swreg.h"
 #include <time.h>
 
@@ -8,7 +9,7 @@
 static clock_t start, end, time_counter, counter_reg;
 static int timer_enable;
 
-void pc_timer_reset(int value) {	
+static void pc_timer_reset(int value) {	
     // use only reg width
     int rst_int = (value & 0x01);
     if(rst_int){
@@ -19,7 +20,7 @@ void pc_timer_reset(int value) {
     return;
 }
 
-void pc_timer_enable(int value){
+static void pc_timer_enable(int value){
     // use only reg width
     int en_int = (value & 0x01);
     // manage transitions
@@ -38,7 +39,7 @@ void pc_timer_enable(int value){
     return;
 }
 
-void pc_timer_sample(int value) {	
+static void pc_timer_sample(int value) {	
     // use only reg width
     int sample_int = (value & 0x01);
     if(sample_int){
@@ -49,28 +50,28 @@ void pc_timer_sample(int value) {
     return;
 }
 
-int pc_timer_data_high(){
+static int pc_timer_data_high(){
     /* convert clock from PC CLOCKS_PER_CYCLE to FREQ */
     double counter_freq = (1.0*counter_reg)*PC_TO_FREQ_FACTOR;
     return ( (int) (((unsigned long long) counter_freq) >> 32));
 }
 
-int pc_timer_data_low(){
+static int pc_timer_data_low(){
     /* convert clock from PC CLOCKS_PER_CYCLE to FREQ */
     double counter_freq = (1.0*counter_reg)*PC_TO_FREQ_FACTOR;
     return ( (int) (((unsigned long long) counter_freq) & 0xFFFFFFFF));
 }
 
 
-void MEM_SET(int type, int location, int value){
+static void MEM_SET(int type, int location, int value){
     return;
 }
 
-int MEM_GET(int type, int location){
+static int MEM_GET(int type, int location){
     return 0;
 }
 
-void IO_SET(int base, int location, int value){
+static void IO_SET(int base, int location, int value){
     switch(location){
         case TIMER_RESET:
             pc_timer_reset(value);
@@ -88,7 +89,7 @@ void IO_SET(int base, int location, int value){
     return;
 }
 
-int IO_GET(int base, int location){
+static int IO_GET(int base, int location){
     int ret_val = 0;
     switch(location){
         case TIMER_DATA_HIGH:
@@ -104,3 +105,5 @@ int IO_GET(int base, int location){
 
     return ret_val;
 }
+
+#endif //ifdef PC

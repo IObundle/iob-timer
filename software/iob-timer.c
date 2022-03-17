@@ -2,6 +2,8 @@
 #include "iob-timer.h"
 #include "iob_timer_swreg.h"
 
+#include "iob-timer-platform.h"
+
 //base address
 static int base;
 
