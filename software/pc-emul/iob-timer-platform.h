@@ -1,5 +1,10 @@
+#ifndef H_TIMER_PC_EMUL_PLATFORM_H
+#define H_TIMER_PC_EMUL_PLATFORM_H
+/* PC Emulation of TIMER peripheral */
+
 #ifdef PC
 
+#include <stdint.h>
 #include "iob_timer_swreg.h"
 #include <time.h>
 
@@ -62,17 +67,8 @@ static int pc_timer_data_low(){
     return ( (int) (((unsigned long long) counter_freq) & 0xFFFFFFFF));
 }
 
-
-static void MEM_SET(int type, int location, int value){
-    return;
-}
-
-static int MEM_GET(int type, int location){
-    return 0;
-}
-
-static void IO_SET(int base, int location, int value){
-    switch(location){
+static void io_set_int(int addr, int64_t value) {
+    switch(addr){
         case TIMER_RESET:
             pc_timer_reset(value);
             break;
@@ -89,9 +85,9 @@ static void IO_SET(int base, int location, int value){
     return;
 }
 
-static int IO_GET(int base, int location){
+static int64_t io_get_int(int addr) {
     int ret_val = 0;
-    switch(location){
+    switch(addr){
         case TIMER_DATA_HIGH:
             ret_val = pc_timer_data_high();
             break;
@@ -102,8 +98,9 @@ static int IO_GET(int base, int location){
             // do nothing
             break;
     }
-
     return ret_val;
 }
 
 #endif //ifdef PC
+
+#endif //ifndef H_TIMER_PC_EMUL_PLATFORM_H

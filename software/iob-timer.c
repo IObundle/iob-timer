@@ -8,16 +8,16 @@
 static int base;
 
 void timer_reset() {	
-  IO_SET(base, TIMER_RESET, 1);
-  IO_SET(base, TIMER_RESET, 0);
+  IO_SET(TIMER_RESET_TYPE, base, TIMER_RESET, 1);
+  IO_SET(TIMER_RESET_TYPE, base, TIMER_RESET, 0);
 }
 
 void timer_start() {	
-  IO_SET(base, TIMER_ENABLE, 1);
+  IO_SET(TIMER_ENABLE_TYPE, base, TIMER_ENABLE, 1);
 }
 
 void timer_stop() {	
-  IO_SET(base, TIMER_ENABLE, 0);
+  IO_SET(TIMER_ENABLE_TYPE, base, TIMER_ENABLE, 0);
 }
 
 
@@ -34,12 +34,12 @@ unsigned long long timer_get_count() {
   unsigned int timer_high, timer_low;
   
   // sample timer
-  IO_SET(base, TIMER_SAMPLE, 1);
-  IO_SET(base, TIMER_SAMPLE, 0);
+  IO_SET(TIMER_SAMPLE_TYPE, base, TIMER_SAMPLE, 1);
+  IO_SET(TIMER_SAMPLE_TYPE, base, TIMER_SAMPLE, 0);
 
   // get count
-  timer_high = (unsigned int) IO_GET(base, TIMER_DATA_HIGH);
-  timer_low = (unsigned int) IO_GET(base, TIMER_DATA_LOW);
+  timer_high = (unsigned int) IO_GET(TIMER_DATA_HIGH_TYPE, base, TIMER_DATA_HIGH);
+  timer_low = (unsigned int) IO_GET(TIMER_DATA_LOW_TYPE, base, TIMER_DATA_LOW);
   timer_total = timer_high;
   timer_total <<= 32;
   timer_total |= timer_low;
