@@ -5,8 +5,9 @@ SW_MODULES+=TIMER
 
 include $(TIMER_DIR)/software/software.mk
 
-#embedded headers
-HDR+=$(TIMER_DIR)/software/embedded/iob-timer-platform.h
-INCLUDE+=$(incdir)$(TIMER_DIR)/software/embedded
+# add embedded sources
+SRC+=iob_timer_swreg_emb.c
 
+iob_timer_swreg_emb.c: iob_timer_swreg.h
+	
 endif

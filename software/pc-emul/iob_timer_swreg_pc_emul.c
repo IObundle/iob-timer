@@ -1,7 +1,10 @@
-#ifdef PC
+/* PC Emulation of TIMER peripheral */
+
+
+#include <stdint.h>
+#include <time.h>
 
 #include "iob_timer_swreg.h"
-#include <time.h>
 
 /* convert clock values from PC CLOCK FREQ to EMBEDDED FREQ */
 #define PC_TO_FREQ_FACTOR ((1.0*FREQ)/CLOCKS_PER_SEC)
@@ -9,7 +12,12 @@
 static clock_t start, end, time_counter, counter_reg;
 static int timer_enable;
 
-static void pc_timer_reset(int value) {	
+void TIMER_INIT_BASEADDR(uint32_t addr) {
+    base = addr;
+    return;
+}
+
+void TIMER_SET_RESET(uint8_t value) {
     // use only reg width
     int rst_int = (value & 0x01);
     if(rst_int){
@@ -20,7 +28,7 @@ static void pc_timer_reset(int value) {
     return;
 }
 
-static void pc_timer_enable(int value){
+void TIMER_SET_ENABLE(uint8_t value) {
     // use only reg width
     int en_int = (value & 0x01);
     // manage transitions
@@ -39,7 +47,7 @@ static void pc_timer_enable(int value){
     return;
 }
 
-static void pc_timer_sample(int value) {	
+void TIMER_SET_SAMPLE(uint8_t value) {
     // use only reg width
     int sample_int = (value & 0x01);
     if(sample_int){
@@ -50,60 +58,15 @@ static void pc_timer_sample(int value) {
     return;
 }
 
-static int pc_timer_data_high(){
+uint32_t TIMER_GET_DATA_HIGH() {
     /* convert clock from PC CLOCKS_PER_CYCLE to FREQ */
     double counter_freq = (1.0*counter_reg)*PC_TO_FREQ_FACTOR;
     return ( (int) (((unsigned long long) counter_freq) >> 32));
 }
 
-static int pc_timer_data_low(){
+uint32_t TIMER_GET_DATA_LOW() {
     /* convert clock from PC CLOCKS_PER_CYCLE to FREQ */
     double counter_freq = (1.0*counter_reg)*PC_TO_FREQ_FACTOR;
     return ( (int) (((unsigned long long) counter_freq) & 0xFFFFFFFF));
 }
 
-
-static void MEM_SET(int type, int location, int value){
-    return;
-}
-
-static int MEM_GET(int type, int location){
-    return 0;
-}
-
-static void IO_SET(int base, int location, int value){
-    switch(location){
-        case TIMER_RESET:
-            pc_timer_reset(value);
-            break;
-        case TIMER_ENABLE:
-            pc_timer_enable(value);
-            break;
-        case TIMER_SAMPLE:
-            pc_timer_sample(value);
-            break;
-        default:
-            // do nothing
-            break;
-    }
-    return;
-}
-
-static int IO_GET(int base, int location){
-    int ret_val = 0;
-    switch(location){
-        case TIMER_DATA_HIGH:
-            ret_val = pc_timer_data_high();
-            break;
-        case TIMER_DATA_LOW:
-            ret_val = pc_timer_data_low();
-            break;
-        default:
-            // do nothing
-            break;
-    }
-
-    return ret_val;
-}
-
-#endif //ifdef PC
