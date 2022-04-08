@@ -1,50 +1,34 @@
-#include "iob-lib.h"
 #include "iob-timer.h"
-#include "iob_timer_swreg.h"
-
-#include "iob-timer-platform.h"
-
-//base address
-static int base;
 
 void timer_reset() {	
-  IO_SET(TIMER_RESET_TYPE, base, TIMER_RESET, 1);
-  IO_SET(TIMER_RESET_TYPE, base, TIMER_RESET, 0);
+    TIMER_SET_RESET(1);
+    TIMER_SET_RESET(0);
 }
-
-void timer_start() {	
-  IO_SET(TIMER_ENABLE_TYPE, base, TIMER_ENABLE, 1);
-}
-
-void timer_stop() {	
-  IO_SET(TIMER_ENABLE_TYPE, base, TIMER_ENABLE, 0);
-}
-
 
 void timer_init(int base_address) {
-  //capture base address for good
-  base = base_address;
-  timer_reset();
-  timer_start();
+    //capture base address for good
+    TIMER_INIT_BASEADDR(base_address);
+    timer_reset();
+    TIMER_SET_ENABLE(1);
 }
 
 unsigned long long timer_get_count() {
 
-  unsigned long long timer_total;
-  unsigned int timer_high, timer_low;
-  
-  // sample timer
-  IO_SET(TIMER_SAMPLE_TYPE, base, TIMER_SAMPLE, 1);
-  IO_SET(TIMER_SAMPLE_TYPE, base, TIMER_SAMPLE, 0);
+    unsigned long long timer_total;
+    unsigned int timer_high, timer_low;
 
-  // get count
-  timer_high = (unsigned int) IO_GET(TIMER_DATA_HIGH_TYPE, base, TIMER_DATA_HIGH);
-  timer_low = (unsigned int) IO_GET(TIMER_DATA_LOW_TYPE, base, TIMER_DATA_LOW);
-  timer_total = timer_high;
-  timer_total <<= 32;
-  timer_total |= timer_low;
-  
-  return timer_total;
+    // sample timer
+    TIMER_SET_SAMPLE(1);
+    TIMER_SET_SAMPLE(0);
+
+    // get count
+    timer_high = (unsigned int) TIMER_GET_DATA_HIGH();
+    timer_low = (unsigned int) TIMER_GET_DATA_LOW();
+    timer_total = timer_high;
+    timer_total <<= 32;
+    timer_total |= timer_low;
+
+    return timer_total;
 } 
 
 //get time in specified time unit (inverse of sample rate)
