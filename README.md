@@ -24,3 +24,9 @@ To clean all generated files, the command is simply
 ```
 make clean-all
 ```
+
+## Integrate in IOb-SoC
+
+Follow the instructions in this
+[presentation](https://github.com/IObundle/iob-soc/blob/master/document/presentation/presentation.pdf)
+from the [IOb-SoC](https://github.com/IObundle/iob-soc) repository.
