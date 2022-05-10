@@ -17,8 +17,8 @@ VHDR+=iob_timer_swreg_gen.vh iob_timer_swreg_def.vh
 #sources
 VSRC+=$(wildcard $(TIMER_SRC_DIR)/*.v)
 
-iob_timer_swreg_gen.vh iob_timer_swreg_def.vh: $(TIMER_INC_DIR)/iob_timer_swreg.vh
-	$(LIB_DIR)/software/python/mkregs.py $< HW
+iob_timer_swreg_gen.vh iob_timer_swreg_def.vh: $(TIMER_DIR)/mkregs.conf
+	$(LIB_DIR)/software/python/mkregs.py iob_timer $(TIMER_DIR) HW
 
 timer_clean_hw:
 	@rm -rf iob_timer_swreg_gen.vh iob_timer_swreg_def.vh tmp
