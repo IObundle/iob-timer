@@ -1,15 +1,15 @@
 #include "iob-timer.h"
 
 void timer_reset() {	
-    TIMER_SET_RESET(1);
-    TIMER_SET_RESET(0);
+    IOB_TIMER_SET_RESET(1);
+    IOB_TIMER_SET_RESET(0);
 }
 
 void timer_init(int base_address) {
     //capture base address for good
-    TIMER_INIT_BASEADDR(base_address);
+    IOB_TIMER_INIT_BASEADDR(base_address);
     timer_reset();
-    TIMER_SET_ENABLE(1);
+    IOB_TIMER_SET_ENABLE(1);
 }
 
 unsigned long long timer_get_count() {
@@ -18,12 +18,12 @@ unsigned long long timer_get_count() {
     unsigned int timer_high, timer_low;
 
     // sample timer
-    TIMER_SET_SAMPLE(1);
-    TIMER_SET_SAMPLE(0);
+    IOB_TIMER_SET_SAMPLE(1);
+    IOB_TIMER_SET_SAMPLE(0);
 
     // get count
-    timer_high = (unsigned int) TIMER_GET_DATA_HIGH();
-    timer_low = (unsigned int) TIMER_GET_DATA_LOW();
+    timer_high = (unsigned int) IOB_TIMER_GET_DATA_HIGH();
+    timer_low = (unsigned int) IOB_TIMER_GET_DATA_LOW();
     timer_total = timer_high;
     timer_total <<= 32;
     timer_total |= timer_low;

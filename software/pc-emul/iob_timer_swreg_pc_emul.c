@@ -12,12 +12,12 @@
 static clock_t start, end, time_counter, counter_reg;
 static int timer_enable;
 
-void TIMER_INIT_BASEADDR(uint32_t addr) {
+void IOB_TIMER_INIT_BASEADDR(uint32_t addr) {
     base = addr;
     return;
 }
 
-void TIMER_SET_RESET(uint8_t value) {
+void IOB_TIMER_SET_RESET(uint8_t value) {
     // use only reg width
     int rst_int = (value & 0x01);
     if(rst_int){
@@ -28,7 +28,7 @@ void TIMER_SET_RESET(uint8_t value) {
     return;
 }
 
-void TIMER_SET_ENABLE(uint8_t value) {
+void IOB_TIMER_SET_ENABLE(uint8_t value) {
     // use only reg width
     int en_int = (value & 0x01);
     // manage transitions
@@ -47,7 +47,7 @@ void TIMER_SET_ENABLE(uint8_t value) {
     return;
 }
 
-void TIMER_SET_SAMPLE(uint8_t value) {
+void IOB_TIMER_SET_SAMPLE(uint8_t value) {
     // use only reg width
     int sample_int = (value & 0x01);
     if(sample_int){
@@ -58,13 +58,13 @@ void TIMER_SET_SAMPLE(uint8_t value) {
     return;
 }
 
-uint32_t TIMER_GET_DATA_HIGH() {
+uint32_t IOB_TIMER_GET_DATA_HIGH() {
     /* convert clock from PC CLOCKS_PER_CYCLE to FREQ */
     double counter_freq = (1.0*counter_reg)*PC_TO_FREQ_FACTOR;
     return ( (int) (((unsigned long long) counter_freq) >> 32));
 }
 
-uint32_t TIMER_GET_DATA_LOW() {
+uint32_t IOB_TIMER_GET_DATA_LOW() {
     /* convert clock from PC CLOCKS_PER_CYCLE to FREQ */
     double counter_freq = (1.0*counter_reg)*PC_TO_FREQ_FACTOR;
     return ( (int) (((unsigned long long) counter_freq) & 0xFFFFFFFF));
