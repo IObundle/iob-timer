@@ -7,8 +7,8 @@ module timer_core
     parameter DATA_W = 32
     )
    (
-    `IOB_INPUT(TIMER_ENABLE, `TIMER_ENABLE_W),
-    `IOB_INPUT(TIMER_SAMPLE, `TIMER_SAMPLE_W),
+    `IOB_INPUT(TIMER_ENABLE, 1),
+    `IOB_INPUT(TIMER_SAMPLE, 1),
     `IOB_OUTPUT(TIMER_VALUE, `TIMER_DATA_LOW_W+`TIMER_DATA_HIGH_W),
     `IOB_INPUT(clk, 1),
     `IOB_INPUT(rst, 1)

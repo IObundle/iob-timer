@@ -12,6 +12,7 @@
 static clock_t start, end, time_counter, counter_reg;
 static int timer_enable;
 
+static int base;
 void IOB_TIMER_INIT_BASEADDR(uint32_t addr) {
     base = addr;
     return;
