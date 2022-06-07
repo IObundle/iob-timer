@@ -7,6 +7,9 @@ HW_MODULES+=TIMER
 
 #define
 
+#import modules
+include $(LIB_DIR)/hardware/iob_reg/hardware.mk
+
 #include
 INCLUDE+=$(incdir)$(TIMER_INC_DIR) $(incdir)$(LIB_DIR)/hardware/include
 
