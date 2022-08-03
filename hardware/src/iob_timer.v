@@ -20,39 +20,33 @@ module iob_timer
 // SWRegs
 
     `IOB_WIRE(TIMER_RESET, 1)
-    iob_reg #(.DATA_W(1))
+    iob_reg #(.DATA_W(1),.RST_VAL(1'b0))
     timer_reset (
         .clk        (clk),
         .arst       (rst),
-        .arst_val   (1'b0),
         .rst        (rst),
-        .rst_val    (1'b0),
         .en         (TIMER_RESET_en),
         .data_in    (TIMER_RESET_wdata[0]),
         .data_out   (TIMER_RESET)
     );
 
     `IOB_WIRE(TIMER_ENABLE, 1)
-    iob_reg #(.DATA_W(1))
+    iob_reg #(.DATA_W(1),.RST_VAL(1'b0))
     timer_enable (
         .clk        (clk),
         .arst       (rst),
-        .arst_val   (1'b0),
         .rst        (rst),
-        .rst_val    (1'b0),
         .en         (TIMER_ENABLE_en),
         .data_in    (TIMER_ENABLE_wdata[0]),
         .data_out   (TIMER_ENABLE)
     );
 
     `IOB_WIRE(TIMER_SAMPLE, 1)
-    iob_reg #(.DATA_W(1))
+    iob_reg #(.DATA_W(1),.RST_VAL(1'b0))
     timer_sample (
         .clk        (clk),
         .arst       (rst),
-        .arst_val   (1'b0),
         .rst        (rst),
-        .rst_val    (1'b0),
         .en         (TIMER_SAMPLE_en),
         .data_in    (TIMER_SAMPLE_wdata[0]),
         .data_out   (TIMER_SAMPLE)
