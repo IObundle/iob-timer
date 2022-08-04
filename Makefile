@@ -1,20 +1,16 @@
-TIMER_DIR:=.
-include config.mk
+CORE_DIR=../..
+LIB_DIR=submodules/LIB
 
-#
-# SIMULATE
-#
+export
 
-sim:
-	make -C $(SIM_DIR) run
+setup:
+	make -C $(LIB_DIR) $@
 
-sim-clean:
-	make -C $(SIM_DIR) clean
+clean:
+	make -C $(LIB_DIR) $@
 
-#
-# CLEAN ALL
-# 
+debug:
+	make -C $(LIB_DIR) $@
 
-clean: sim-clean
 
-.PHONY: corename sim sim-clean clean
+.PHONY: setup clean debug
