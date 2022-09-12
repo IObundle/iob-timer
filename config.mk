@@ -1,3 +1,5 @@
+TOP_MODULE=iob_timer
+
 DATA_W=32
 
 #PATHS
