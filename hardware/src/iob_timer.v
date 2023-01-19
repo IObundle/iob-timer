@@ -1,64 +1,30 @@
 `timescale 1ns/1ps
 `include "iob_lib.vh"
-`include "iob_intercon.vh"
-`include "iob_timer.vh"
 
 module iob_timer
   #(
-    parameter ADDR_W = `TIMER_ADDR_W, //NODOC Address width
-    parameter DATA_W = 32, //NODOC Data word width
-    parameter WDATA_W = `TIMER_WDATA_W //NODOC Data word width on writes
-    )
-   (
-`include "iob_s_if.vh"
-`include "iob_gen_if.vh"
+     `include "iob_timer_params.vh"
+   ) (
+     `include "iob_timer_io.vh"
     );
+    // This mapping is required because "iob_timer_swreg_inst.vh" uses "iob_s_portmap.vh" (This would not be needed if mkregs used "iob_s_s_portmap.vh" instead)
+    wire [1-1:0] iob_avalid = iob_avalid_i; //Request valid.
+    wire [ADDR_W-1:0] iob_addr = iob_addr_i; //Address.
+    wire [DATA_W-1:0] iob_wdata = iob_wdata_i; //Write data.
+    wire [(DATA_W/8)-1:0] iob_wstrb = iob_wstrb_i; //Write strobe.
+    wire [1-1:0] iob_rvalid; assign iob_rvalid_o = iob_rvalid; //Read data valid.
+    wire [DATA_W-1:0] iob_rdata; assign iob_rdata_o = iob_rdata; //Read data.
+    wire [1-1:0] iob_ready; assign iob_ready_o = iob_ready; //Interface ready.
+
 
 //BLOCK Register File & Configuration, control and status registers accessible by the sofware
-`include "iob_timer_swreg_gen.vh"
+`include "iob_timer_swreg_inst.vh"
 
 // SWRegs
 
-    `IOB_WIRE(TIMER_RESET, 1)
-    iob_reg #(.DATA_W(1),.RST_VAL(1'b0))
-    timer_reset (
-        .clk        (clk),
-        .arst       (rst),
-        .rst        (rst),
-        .en         (TIMER_RESET_en),
-        .data_in    (TIMER_RESET_wdata[0]),
-        .data_out   (TIMER_RESET)
-    );
-
-    `IOB_WIRE(TIMER_ENABLE, 1)
-    iob_reg #(.DATA_W(1),.RST_VAL(1'b0))
-    timer_enable (
-        .clk        (clk),
-        .arst       (rst),
-        .rst        (rst),
-        .en         (TIMER_ENABLE_en),
-        .data_in    (TIMER_ENABLE_wdata[0]),
-        .data_out   (TIMER_ENABLE)
-    );
-
-    `IOB_WIRE(TIMER_SAMPLE, 1)
-    iob_reg #(.DATA_W(1),.RST_VAL(1'b0))
-    timer_sample (
-        .clk        (clk),
-        .arst       (rst),
-        .rst        (rst),
-        .en         (TIMER_SAMPLE_en),
-        .data_in    (TIMER_SAMPLE_wdata[0]),
-        .data_out   (TIMER_SAMPLE)
-    );
-
     //combined hard/soft reset
-   `IOB_VAR(rst_int, 1)
-   `IOB_COMB rst_int = rst | TIMER_RESET;
-
-   //write signal
-   `IOB_VAR(write, 1)
-   `IOB_COMB write = | wstrb;
+   `IOB_VAR(arst_int, 1)
+   `IOB_COMB arst_int = arst_i | RESET;
 
    //
    //BLOCK 64-bit time counter & Free-running 64-bit counter with enable and soft reset capabilities
@@ -66,14 +32,15 @@ module iob_timer
    `IOB_WIRE(TIMER_VALUE, 2*DATA_W)
    timer_core timer0
      (
-      .TIMER_ENABLE(TIMER_ENABLE),
-      .TIMER_SAMPLE(TIMER_SAMPLE),
+      .TIMER_ENABLE(ENABLE),
+      .TIMER_SAMPLE(SAMPLE),
       .TIMER_VALUE(TIMER_VALUE),
-      .clk(clk),
-      .rst(rst_int)
+      .clk_i(clk_i),
+      .cke_i(cke_i),
+      .arst_i(arst_int)
       );
 
-    assign  TIMER_DATA_LOW_rdata = TIMER_VALUE[DATA_W-1:0];
-    assign  TIMER_DATA_HIGH_rdata = TIMER_VALUE[2*DATA_W-1:DATA_W];      
+    assign DATA_LOW = TIMER_VALUE[DATA_W-1:0];
+    assign DATA_HIGH = TIMER_VALUE[2*DATA_W-1:DATA_W];      
 
 endmodule

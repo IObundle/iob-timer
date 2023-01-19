@@ -9,20 +9,17 @@ module timer_core
    (
     `IOB_INPUT(TIMER_ENABLE, 1),
     `IOB_INPUT(TIMER_SAMPLE, 1),
-    `IOB_OUTPUT(TIMER_VALUE, `TIMER_DATA_LOW_W+`TIMER_DATA_HIGH_W),
-    `IOB_INPUT(clk, 1),
-    `IOB_INPUT(rst, 1)
+    `IOB_OUTPUT(TIMER_VALUE, `IOB_TIMER_DATA_LOW_W+`IOB_TIMER_DATA_HIGH_W),
+    `IOB_INPUT(clk_i, 1),
+    `IOB_INPUT(cke_i, 1),
+    `IOB_INPUT(arst_i, 1)
     );
 
 
-   `IOB_VAR(time_counter, 2*DATA_W)
-   `IOB_COUNTER_ARE(clk, rst, TIMER_ENABLE, time_counter)
+   `IOB_WIRE(time_counter, 2*DATA_W)
+    iob_counter #(2*DATA_W,0) time_counter_cnt (clk_i, arst_i, cke_i, 1'b0, TIMER_ENABLE, time_counter);
 
    //time counter register
-   `IOB_VAR(counter_reg, 2*DATA_W)
-
-   `IOB_REG_E(clk, TIMER_SAMPLE, counter_reg, time_counter)
-
-   `IOB_VAR2WIRE(counter_reg, TIMER_VALUE)
+    iob_reg_e #(2*DATA_W,0) time_counter_reg (clk_i, arst_i, cke_i, TIMER_SAMPLE, time_counter, TIMER_VALUE);
 
 endmodule
