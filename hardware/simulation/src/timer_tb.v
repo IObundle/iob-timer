@@ -1,18 +1,18 @@
 `timescale 1ns/1ps
 `include "iob_lib.vh"
-`include "iob_intercon.vh"
-`include "iob_timer.vh"
+`include "iob_timer_swreg_def.vh"
 
 module timer_tb;
 
    localparam PER=10;
+   localparam DATA_W = 32;
    
    `IOB_CLOCK(clk, PER)
-   `IOB_RESET(rst, 7, 10)
+    reg rst;
 
    `IOB_VAR(TIMER_ENABLE, 1)
    `IOB_VAR(TIMER_SAMPLE, 1)
-   `IOB_WIRE(TIMER_VALUE, 2*`DATA_W)
+   `IOB_WIRE(TIMER_VALUE, 2*DATA_W)
    
    initial begin
 `ifdef VCD
@@ -22,8 +22,9 @@ module timer_tb;
       TIMER_ENABLE = 0;
       TIMER_SAMPLE = 0;
 
-      @(posedge rst);
-      @(negedge rst);
+      rst = 1;
+      // deassert hard reset
+      @(posedge clk) #1 rst = 0;
       @(posedge clk) #1 TIMER_ENABLE = 1;
       @(posedge clk) #1 TIMER_SAMPLE = 1;
       @(posedge clk) #1 TIMER_SAMPLE = 0;
@@ -50,8 +51,9 @@ module timer_tb;
       .TIMER_ENABLE(TIMER_ENABLE),
       .TIMER_SAMPLE(TIMER_SAMPLE),
       .TIMER_VALUE(TIMER_VALUE),
-      .clk(clk),
-      .rst(rst)
+      .clk_i(clk),
+      .cke_i(1'b1),
+      .arst_i(rst)
       );   
 
 endmodule

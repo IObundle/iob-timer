@@ -14,7 +14,7 @@ meta['build_dir']=f"../{meta['name']+'_'+meta['version']}"
 meta['submodules'] = {
     'hw_setup': {
         'headers' : [ 'iob_s_port', 'iob_s_portmap' ],
-        'modules': [ 'iob_reg.v', 'iob_reg_e.v' ]
+        'modules': [ 'iob_reg.v', 'iob_reg_e.v', 'iob_counter', 'iob_reg_r.v' ]
     },
 }
 
