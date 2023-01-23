@@ -31,6 +31,6 @@ jobs:
         with:
           submodules: 'recursive'
       - name: test-clean
-        run: make setup
+        run: make clean && make setup
       - name: test-sim
-        run: make -C iob_timer_V0.10/ sim-test
+        run: make -C ../iob_timer_V*/ sim-test

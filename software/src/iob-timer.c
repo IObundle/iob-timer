@@ -1,11 +1,15 @@
 #include "iob-timer.h"
 
+// System clock frequency in Hz
+unsigned int sys_freq;
+
 void timer_reset() {	
     IOB_TIMER_SET_RESET(1);
     IOB_TIMER_SET_RESET(0);
 }
 
-void timer_init(int base_address) {
+void timer_init(int base_address, unsigned int freq) {
+    sys_freq = freq;
     //capture base address for good
     IOB_TIMER_INIT_BASEADDR(base_address);
     timer_reset();
@@ -41,7 +45,7 @@ unsigned int timer_time_tu(int sample_rate) {
   unsigned long long timer_total = timer_get_count();
 
   //number of clocks per time unit
-  float ticks_per_tu = ( (float) FREQ)/sample_rate;
+  float ticks_per_tu = ( (float) sys_freq)/sample_rate;
  
   //time in us
   float time_tu = timer_total / ticks_per_tu;
