@@ -16,8 +16,9 @@ from iob_reg_e import iob_reg_e
 from iob_reg_r import iob_reg_r
 from iob_counter import iob_counter
 
+
 class iob_timer(iob_module):
-    name='iob_timer'
+    name = "iob_timer"
     version = "V0.10"
     flows = "sim emb"
     setup_dir = os.path.dirname(__file__)
@@ -50,32 +51,38 @@ class iob_timer(iob_module):
         # Setup core using LIB function
         setup(cls)
 
-
     @classmethod
     def _setup_confs(cls):
-        super()._setup_confs([
-            # Macros
-
-            # Parameters
-            {
-                "name": "DATA_W",
-                "type": "P",
-                "val": "32",
-                "min": "NA",
-                "max": "NA",
-                "descr": "Data bus width",
-            },
-            {
-                "name": "ADDR_W",
-                "type": "P",
-                "val": "`IOB_TIMER_SWREG_ADDR_W",
-                "min": "NA",
-                "max": "NA",
-                "descr": "Address bus width",
-            },
-            {"name": "WDATA_W", "type": "P", "val": "1", "min": "NA", "max": "8", "descr": ""},
-        ])
-
+        super()._setup_confs(
+            [
+                # Macros
+                # Parameters
+                {
+                    "name": "DATA_W",
+                    "type": "P",
+                    "val": "32",
+                    "min": "NA",
+                    "max": "NA",
+                    "descr": "Data bus width",
+                },
+                {
+                    "name": "ADDR_W",
+                    "type": "P",
+                    "val": "`IOB_TIMER_SWREG_ADDR_W",
+                    "min": "NA",
+                    "max": "NA",
+                    "descr": "Address bus width",
+                },
+                {
+                    "name": "WDATA_W",
+                    "type": "P",
+                    "val": "1",
+                    "min": "NA",
+                    "max": "8",
+                    "descr": "",
+                },
+            ]
+        )
 
     @classmethod
     def _setup_ios(cls):
@@ -106,7 +113,6 @@ class iob_timer(iob_module):
                 ],
             },
         ]
-
 
     @classmethod
     def _setup_regs(cls):
@@ -168,7 +174,6 @@ class iob_timer(iob_module):
                 ],
             }
         ]
-
 
     @classmethod
     def _setup_block_groups(cls):
