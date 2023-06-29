@@ -6,8 +6,8 @@
 void timer_reset();
 void timer_init( int base_address);	
 
-unsigned long long timer_get_count();
-unsigned int timer_time_tu(int sample_rate);
-unsigned int timer_time_us();
-unsigned int timer_time_ms();
-unsigned int timer_time_s();
+uint64_t timer_get_count();
+uint64_t timer_time_tu(uint64_t sample_rate);
+uint64_t timer_time_us();
+uint64_t timer_time_ms();
+uint64_t timer_time_s();
