@@ -4,7 +4,6 @@ import os
 import sys
 
 from iob_module import iob_module
-from setup import setup
 
 # Submodules
 from iob_lib import iob_lib
@@ -24,32 +23,23 @@ class iob_timer(iob_module):
     setup_dir = os.path.dirname(__file__)
 
     @classmethod
-    def _run_setup(cls):
-        # Hardware headers & modules
-        iob_module.generate("iob_s_port")
-        iob_module.generate("iob_s_portmap")
-        iob_lib.setup()
-        iob_utils.setup()
-        iob_clkenrst_portmap.setup()
-        iob_clkenrst_port.setup()
-        iob_reg.setup()
-        iob_reg_e.setup()
-        iob_reg_r.setup()
-        iob_counter.setup()
-
-        cls._setup_confs()
-        cls._setup_ios()
-        cls._setup_regs()
-        cls._setup_block_groups()
-
-        # Verilog modules instances
-        # TODO
-
-        # Copy sources of this module to the build directory
-        super()._run_setup()
-
-        # Setup core using LIB function
-        setup(cls)
+    def _create_submodules_list(cls):
+        """Create submodules list with dependencies of this module"""
+        super()._create_submodules_list(
+            [
+                # Hardware headers & modules
+                "iob_s_port",
+                "iob_s_portmap",
+                iob_lib,
+                iob_utils,
+                iob_clkenrst_portmap,
+                iob_clkenrst_port,
+                iob_reg,
+                iob_reg_e,
+                iob_reg_r,
+                iob_counter,
+            ]
+        )
 
     @classmethod
     def _setup_confs(cls):
