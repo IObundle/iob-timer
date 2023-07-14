@@ -26,10 +26,10 @@ class iob_timer(iob_module):
         super()._create_submodules_list(
             [
                 # Hardware headers & modules
-                "iob_s_port",
-                "iob_s_portmap",
-                "clk_en_rst_portmap",
-                "clk_en_rst_port",
+                {"interface": "iob_s_port"},
+                {"interface": "iob_s_portmap"},
+                {"interface": "clk_en_rst_portmap"},
+                {"interface": "clk_en_rst_port"},
                 iob_lib,
                 iob_utils,
                 iob_reg,
