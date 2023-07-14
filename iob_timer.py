@@ -8,8 +8,6 @@ from iob_module import iob_module
 # Submodules
 from iob_lib import iob_lib
 from iob_utils import iob_utils
-from iob_clkenrst_portmap import iob_clkenrst_portmap
-from iob_clkenrst_port import iob_clkenrst_port
 from iob_reg import iob_reg
 from iob_reg_e import iob_reg_e
 from iob_reg_r import iob_reg_r
@@ -28,12 +26,12 @@ class iob_timer(iob_module):
         super()._create_submodules_list(
             [
                 # Hardware headers & modules
-                "iob_s_port",
-                "iob_s_portmap",
+                {"interface": "iob_s_port"},
+                {"interface": "iob_s_portmap"},
+                {"interface": "clk_en_rst_portmap"},
+                {"interface": "clk_en_rst_port"},
                 iob_lib,
                 iob_utils,
-                iob_clkenrst_portmap,
-                iob_clkenrst_port,
                 iob_reg,
                 iob_reg_e,
                 iob_reg_r,
