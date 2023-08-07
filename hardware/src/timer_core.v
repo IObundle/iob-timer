@@ -1,5 +1,4 @@
 `timescale 1ns / 1ps
-`include "iob_lib.vh"
 `include "iob_timer_swreg_def.vh"
 
 module timer_core #(

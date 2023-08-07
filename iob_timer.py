@@ -6,7 +6,6 @@ import sys
 from iob_module import iob_module
 
 # Submodules
-from iob_lib import iob_lib
 from iob_utils import iob_utils
 from iob_reg import iob_reg
 from iob_reg_e import iob_reg_e
@@ -28,9 +27,8 @@ class iob_timer(iob_module):
                 # Hardware headers & modules
                 {"interface": "iob_s_port"},
                 {"interface": "iob_s_portmap"},
-                {"interface": "clk_en_rst_portmap"},
-                {"interface": "clk_en_rst_port"},
-                iob_lib,
+                {"interface": "clk_en_rst_s_s_portmap"},
+                {"interface": "clk_en_rst_s_port"},
                 iob_utils,
                 iob_reg,
                 iob_reg_e,
