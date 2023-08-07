@@ -7,9 +7,7 @@ from iob_module import iob_module
 
 # Submodules
 from iob_utils import iob_utils
-from iob_reg import iob_reg
-from iob_reg_e import iob_reg_e
-from iob_reg_r import iob_reg_r
+from iob_reg_re import iob_reg_re
 from iob_counter import iob_counter
 
 
@@ -30,9 +28,7 @@ class iob_timer(iob_module):
                 {"interface": "clk_en_rst_s_s_portmap"},
                 {"interface": "clk_en_rst_s_port"},
                 iob_utils,
-                iob_reg,
-                iob_reg_e,
-                iob_reg_r,
+                iob_reg_re,
                 iob_counter,
             ]
         )

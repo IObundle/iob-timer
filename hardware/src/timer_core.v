@@ -7,36 +7,38 @@ module timer_core #(
    input                                                     clk_i,
    input                                                     cke_i,
    input                                                     arst_i,
-   input                                                     TIMER_ENABLE,
-   input                                                     TIMER_SAMPLE,
-   output [`IOB_TIMER_DATA_LOW_W+`IOB_TIMER_DATA_HIGH_W-1:0] TIMER_VALUE
+   input                                                     en_i,
+   input                                                     rst_i,
+   input                                                     rstrb_i,
+   output [`IOB_TIMER_DATA_LOW_W+`IOB_TIMER_DATA_HIGH_W-1:0] time_o
 );
 
+   wire [2*DATA_W-1:0] time_counter;
 
-   `IOB_WIRE(time_counter, 2 * DATA_W)
    iob_counter #(
       .DATA_W (2 * DATA_W),
       .RST_VAL(0)
    ) time_counter_cnt (
       .clk_i (clk_i),
-      .arst_i(arst_i),
       .cke_i (cke_i),
-      .rst_i (1'b0),
-      .en_i  (TIMER_ENABLE),
+      .arst_i(arst_i),
+      .rst_i (rst_i),
+      .en_i  (en_i),
       .data_o(time_counter)
    );
 
    //time counter register
-   iob_reg_e #(
+   iob_reg_re #(
       .DATA_W (2 * DATA_W),
       .RST_VAL(0)
    ) time_counter_reg (
       .clk_i (clk_i),
-      .arst_i(arst_i),
       .cke_i (cke_i),
-      .en_i  (TIMER_SAMPLE),
+      .arst_i(arst_i),
+      .rst_i (rst_i),
+      .en_i  (rstrb_i),
       .data_i(time_counter),
-      .data_o(TIMER_VALUE)
+      .data_o(time_o)
    );
 
 endmodule
