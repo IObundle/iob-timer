@@ -9,12 +9,14 @@ module timer_tb;
 
    integer fd;
 
+   reg clk;
    `IOB_CLOCK(clk, PER)
+
    reg rst;
 
-   `IOB_VAR(TIMER_ENABLE, 1)
-   `IOB_VAR(TIMER_SAMPLE, 1)
-   `IOB_WIRE(TIMER_VALUE, 2 * DATA_W)
+   reg TIMER_ENABLE;
+   reg TIMER_SAMPLE;
+   wire [2*DATA_W-1:0] TIMER_VALUE;
 
    initial begin
 `ifdef VCD
@@ -57,12 +59,13 @@ module timer_tb;
 
    //instantiate timer core
    timer_core timer0 (
-      .TIMER_ENABLE(TIMER_ENABLE),
-      .TIMER_SAMPLE(TIMER_SAMPLE),
-      .TIMER_VALUE (TIMER_VALUE),
+      .en_i(TIMER_ENABLE),
+      .rstrb_i(TIMER_SAMPLE),
+      .time_o(TIMER_VALUE),
       .clk_i       (clk),
       .cke_i       (1'b1),
-      .arst_i      (rst)
+      .arst_i      (rst),
+      .rst_i       (rst)
    );
 
 endmodule

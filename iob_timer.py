@@ -8,6 +8,7 @@ from iob_module import iob_module
 # Submodules
 from iob_utils import iob_utils
 from iob_reg_re import iob_reg_re
+from iob_reg_e import iob_reg_e
 from iob_counter import iob_counter
 
 
@@ -25,10 +26,12 @@ class iob_timer(iob_module):
                 # Hardware headers & modules
                 {"interface": "iob_s_port"},
                 {"interface": "iob_s_portmap"},
+                {"interface": "iob_wire"},
                 {"interface": "clk_en_rst_s_s_portmap"},
                 {"interface": "clk_en_rst_s_port"},
                 iob_utils,
                 iob_reg_re,
+                iob_reg_e,
                 iob_counter,
             ]
         )
