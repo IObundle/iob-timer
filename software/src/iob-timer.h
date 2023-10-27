@@ -4,7 +4,7 @@
 
 //Functions
 void timer_reset();
-void timer_init( int base_address);	
+void timer_init(int base_address, unsigned int freq);
 
 uint64_t timer_get_count();
 uint64_t timer_time_tu(uint64_t sample_rate);
