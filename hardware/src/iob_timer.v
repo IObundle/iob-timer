@@ -34,13 +34,13 @@ module iob_timer #(
       .clk_i       (clk_i),
       .cke_i       (cke_i),
       .arst_i      (arst_i),
-      .en_i        (ENABLE),
-      .rst_i       (RESET),
-      .rstrb_i     (SAMPLE),
+      .en_i        (ENABLE_wr),
+      .rst_i       (RESET_wr),
+      .rstrb_i     (SAMPLE_wr),
       .time_o      (time_now)
    );
 
-   assign DATA_LOW  = time_now[DATA_W-1:0];
-   assign DATA_HIGH = time_now[2*DATA_W-1:DATA_W];
+   assign DATA_LOW_rd  = time_now[DATA_W-1:0];
+   assign DATA_HIGH_rd = time_now[2*DATA_W-1:DATA_W];
 
 endmodule
