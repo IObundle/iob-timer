@@ -112,7 +112,7 @@ class iob_timer(iob_module):
                         "n_bits": 1,
                         "rst_val": 0,
                         "log2n_items": 0,
-                        "autologic": True,
+                        "autoreg": True,
                         "descr": "Timer soft reset",
                     },
                     {
@@ -121,7 +121,7 @@ class iob_timer(iob_module):
                         "n_bits": 1,
                         "rst_val": 0,
                         "log2n_items": 0,
-                        "autologic": True,
+                        "autoreg": True,
                         "descr": "Timer enable",
                     },
                     {
@@ -130,7 +130,7 @@ class iob_timer(iob_module):
                         "n_bits": 1,
                         "rst_val": 0,
                         "log2n_items": 0,
-                        "autologic": True,
+                        "autoreg": True,
                         "descr": "Sample time counter value into a readable register",
                     },
                     {
@@ -139,7 +139,7 @@ class iob_timer(iob_module):
                         "n_bits": 32,
                         "rst_val": 0,
                         "log2n_items": 0,
-                        "autologic": True,
+                        "autoreg": True,
                         "descr": "High part of the timer value, which has twice the width of the data word width",
                     },
                     {
@@ -148,7 +148,7 @@ class iob_timer(iob_module):
                         "n_bits": 32,
                         "rst_val": 0,
                         "log2n_items": 0,
-                        "autologic": True,
+                        "autoreg": True,
                         "descr": "Low part of the timer value, which has twice the width of the data word width",
                     },
                 ],
