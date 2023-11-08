@@ -134,7 +134,7 @@ class iob_timer(iob_module):
                         "descr": "Sample time counter value into a readable register",
                     },
                     {
-                        "name": "DATA_HIGH",
+                        "name": "DATA_LOW",
                         "type": "R",
                         "n_bits": 32,
                         "rst_val": 0,
@@ -143,7 +143,7 @@ class iob_timer(iob_module):
                         "descr": "High part of the timer value, which has twice the width of the data word width",
                     },
                     {
-                        "name": "DATA_LOW",
+                        "name": "DATA_HIGH",
                         "type": "R",
                         "n_bits": 32,
                         "rst_val": 0,
