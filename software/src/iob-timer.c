@@ -1,15 +1,18 @@
 #include "iob-timer.h"
 
 // System clock frequency in Hz
-unsigned int sys_freq;
+uint32_t sys_freq;
+// Base Address
+static uint32_t base;
 
 void timer_reset() {	
     IOB_TIMER_SET_RESET(1);
     IOB_TIMER_SET_RESET(0);
 }
 
-void timer_init(int base_address, unsigned int freq) {
+void timer_init(uint32_t base_address, uint32_t freq) {
     sys_freq = freq;
+    base = base_address;
     //capture base address for good
     IOB_TIMER_INIT_BASEADDR(base_address);
     timer_reset();
@@ -32,24 +35,27 @@ uint64_t timer_get_count() {
     timer_total |= timer_low;
 
     return timer_total;
-} 
+}
+
+// TODO: find why the below version does not work 
+uint64_t timer_get_count2() {
+  return (*( (volatile uint64_t *) ( (base) + (IOB_TIMER_DATA_HIGH_ADDR)) ));
+}
+
 
 //get time in specified time unit (inverse of sample rate)
 // timer_time_tu(1):        time in seconds
 // timer_time_tu(1000):     time in milliseconds
 // timer_time_tu(1000000):  time in microseconds
-uint64_t timer_time_tu(uint64_t sample_rate) {
+uint64_t timer_time_tu(uint32_t scale_factor) {
 
-    //get time count
-    uint64_t timer_total = timer_get_count();
+  //get time count
+  uint64_t time_count = timer_get_count();
 
   //number of clocks per time unit
-  float ticks_per_tu = ( (float) sys_freq)/sample_rate;
+  uint64_t time_tu = (scale_factor * time_count)/sys_freq;
  
-  //time in us
-  float time_tu = timer_total / ticks_per_tu;
- 
-  return (unsigned int) time_tu;
+  return (uint64_t) time_tu;
 }
 
 //get time in us
