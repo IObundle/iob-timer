@@ -17,7 +17,7 @@ int main()
 
   //read current timer count, compute elapsed time
   elapsed  = timer_get_count();
-  elapsedu = timer_time_us();
+  elapsedu = elapsed/(FREQ/1000000);
 
   printf("\nExecution time: %d clock cycles\n", (unsigned int) elapsed);
   printf("\nExecution time: %dus @%dMHz\n\n", elapsedu, FREQ/1000000);

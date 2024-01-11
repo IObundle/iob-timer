@@ -19,7 +19,11 @@ uint64_t timer_get_count() {
   // sample timer counter
   IOB_TIMER_SET_SAMPLE(1);
   IOB_TIMER_SET_SAMPLE(0);
-  return (*( (volatile uint64_t *) ( base ) ) );
-}
 
+  uint64_t count = (uint64_t) IOB_TIMER_GET_DATA_HIGH();
+  count <<= IOB_TIMER_DATA_LOW_W;
+  count |= (uint64_t) IOB_TIMER_GET_DATA_LOW();
+
+  return count;
+}
 
